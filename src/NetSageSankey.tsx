@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PanelProps } from '@grafana/data';
-import { SimpleOptions } from 'types';
+import { NetSageSankeyOptions } from 'types';
 import * as d3 from 'd3';
 import * as d3Sankey from 'd3-sankey';
 
-interface Props extends PanelProps<SimpleOptions> {}
+interface Props extends PanelProps<NetSageSankeyOptions> {}
 
 export const NetSageSankey: React.FC<Props> = ({ options, data, width, height }) => {
   const getMousePosition = (event: { target: { getScreenCTM: () => any }; clientX: number; clientY: number }) => {
@@ -81,7 +81,7 @@ export const NetSageSankey: React.FC<Props> = ({ options, data, width, height })
     const graph: any = useRef(null);
     const offset: any = useRef(null);
 
-    const colors = options.showSeriesCount ? d3.interpolateWarm : d3.interpolateCool;
+    const colors = options.showWarmColors ? d3.interpolateWarm : d3.interpolateCool;
     const sankey: any = d3Sankey
       .sankey()
       .nodeAlign(d3Sankey.sankeyJustify)
