@@ -4,7 +4,7 @@ import { SimpleOptions } from 'types';
 import * as d3 from 'd3';
 import * as d3Sankey from 'd3-sankey';
 
-interface Props extends PanelProps<SimpleOptions> { }
+interface Props extends PanelProps<SimpleOptions> {}
 
 export const NetSageSankey: React.FC<Props> = ({ options, data, width, height }) => {
   const getMousePosition = (event: { target: { getScreenCTM: () => any }; clientX: number; clientY: number }) => {
