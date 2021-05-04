@@ -1,0 +1,30 @@
+{
+  "name": "netsage-sankey-v3",
+  "version": "1.0.0",
+  "description": "NetSage Plugin for Grafana 7 and newer",
+  "private": true,
+  "scripts": {
+    "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
+    "dev": "grafana-toolkit plugin:dev",
+    "watch": "grafana-toolkit plugin:dev --watch",
+    "sign": "grafana-toolkit plugin:sign",
+    "start": "yarn watch"
+  },
+  "dependencies": {
+    "d3-sankey": "latest"
+  },
+  "author": "Netsage",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@grafana/data": "latest",
+    "@grafana/toolkit": "latest",
+    "@grafana/ui": "latest",
+    "@types/d3": "^6.3.0",
+    "@types/d3-sankey": "^0.11.1",
+    "emotion": "10.0.27"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
