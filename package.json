@@ -1,7 +1,7 @@
 {
   "name": "netsage-sankey-v3",
   "version": "1.0.0",
-  "description": "NetSage Plugin for Grafana 7 and newer",
+  "description": "NetSage Sankey Plugin for Grafana 7.0+",
   "private": true,
   "scripts": {
     "build": "grafana-toolkit plugin:build",
