@@ -6,8 +6,20 @@ import * as d3Sankey from 'd3-sankey';
 
 interface Props extends PanelProps<NetSageSankeyOptions> {}
 
-export const NetSageSankey: React.FC<Props> = ({ options, data, width, height }) => {
-  const getMousePosition = (event: { target: { getScreenCTM: () => any }; clientX: number; clientY: number }) => {
+/**
+ * Grafana Sankey diagram panel
+ *
+ * @param {*} { options, data, width, height }
+ * @return {*} { React.FC<Props> }
+ */
+export const NetSageSankey: React.FC<Props> = ({ options, data, width, height }: any): any => {
+  /**
+   * Return mouse coordinates on mouse events
+   *
+   * @param {{ target: { getScreenCTM: () => any }; clientX: number; clientY: number }} event
+   * @return {*}
+   */
+  const getMousePosition = (event: { target: { getScreenCTM: () => any }; clientX: number; clientY: number }): any => {
     const CTM = event.target.getScreenCTM();
 
     return {
@@ -16,7 +28,13 @@ export const NetSageSankey: React.FC<Props> = ({ options, data, width, height })
     };
   };
 
-  const Rect = ({ index, x0, x1, y0, y1, name, value, length, colors }: any) => {
+  /**
+   * Create Sankey rectangular nodes with text
+   *
+   * @param {*} { index, x0, x1, y0, y1, name, length, colors }
+   * @return {*}  {*}
+   */
+  const Rect = ({ index, x0, x1, y0, y1, name, length, colors }: any): any => {
     return (
       <>
         <rect x={x0} y={y0} width={x1 - x0} height={y1 - y0} fill={colors(index / length)} data-index={index} />
@@ -41,7 +59,13 @@ export const NetSageSankey: React.FC<Props> = ({ options, data, width, height })
     );
   };
 
-  const Link = ({ data, width, length, colors }: any) => {
+  /**
+   * Create Sankey links between nodes
+   *
+   * @param {*} { data, width, length, colors }
+   * @return {*}
+   */
+  const Link = ({ data, width, length, colors }: any): any => {
     const link: any = d3Sankey.sankeyLinkHorizontal();
 
     return (
@@ -68,9 +92,15 @@ export const NetSageSankey: React.FC<Props> = ({ options, data, width, height })
     );
   };
 
+  /**
+   * Main Sankey generator
+   *
+   * @return {*}
+   */
   const Sankey = () => {
     const [jsonData, setData] = useState(null);
 
+    // TODO - Replace test data with data passed to plugin
     useEffect(() => {
       fetch('https://raw.githubusercontent.com/ozlongblack/d3/master/energy.json')
         .then(res => res.json())
@@ -81,6 +111,7 @@ export const NetSageSankey: React.FC<Props> = ({ options, data, width, height })
     const graph: any = useRef(null);
     const offset: any = useRef(null);
 
+    // Color scheme set by toggle switch in plugin UI
     const colors = options.showWarmColors ? d3.interpolateWarm : d3.interpolateCool;
     const sankey: any = d3Sankey
       .sankey()
@@ -153,7 +184,7 @@ export const NetSageSankey: React.FC<Props> = ({ options, data, width, height })
       );
     }
 
-    return <div>Loading</div>;
+    return <svg width={width} height={height}></svg>;
   };
 
   return Sankey();
