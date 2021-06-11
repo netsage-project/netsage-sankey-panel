@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/bijujacob/netsage-sankey-v3/workflows/CI/badge.svg)](https://github.com/bijujacob/netsage-sankey-v3/actions?query=workflow%3A%22CI%22)
 
-This is a NetSage panel plugin for generating Sankey diagrams in Grafana 7.0+. This plugin requires [d3-sankey](https://github.com/d3/d3-sankey) - a [D3.js](https://github.com/d3) package. D3 is already bundled with Grafana 7.0.
+This is a NetSage panel plugin for generating Sankey diagrams in Grafana 7.0+. This plugin requires [d3-sankey](https://github.com/d3/d3-sankey) - a [D3.js](https://github.com/d3) package. D3 is already bundled with Grafana 7.0+.
 
 ## Getting started
 
