@@ -1,3 +1,3 @@
 export interface NetSageSankeyOptions {
-  showWarmColors: boolean;
+  colorTheme: string;
 }
