@@ -105,7 +105,7 @@ export const NetSageSankey: React.FC<Props> = ({ options, data, width, height }:
     const view = new DataFrameView(frame);
 
     // Retrieve panel data from panel
-    // TODO: Switch our hard coded field names in lieu of plugin options
+    // TODO: Switch out hard coded field names in lieu of plugin options or indices
     view.forEach((row) => {
       const src = row['meta.src_preferred_org'];
       const link = row['meta.scireg.src.discipline'];

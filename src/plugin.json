@@ -4,9 +4,9 @@
   "name": "NetSage Sankey v3",
   "id": "netsage-sankey-panel",
   "info": {
-    "description": "NetSage Plugin for Grafana 7 and newer",
+    "description": "NetSage Sankey Plugin for Grafana 7 and newer",
     "author": {
-      "name": "Netsage",
+      "name": "NetSage",
       "url": "http://www.netsage.global"
     },
     "keywords": ["netsage", "sankey"],

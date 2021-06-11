@@ -14,7 +14,7 @@
   "dependencies": {
     "d3-sankey": "latest"
   },
-  "author": "Netsage",
+  "author": "NetSage",
   "license": "Apache-2.0",
   "devDependencies": {
     "@grafana/data": "latest",
