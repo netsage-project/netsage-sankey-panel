@@ -8,10 +8,20 @@ import { NetSageSankey } from './NetSageSankey';
  * @param {*} { panel: React.ComponentType<PanelProps<NetSageSankeyOptions>> | null }
  * @return {*} { builder: PanelOptionsEditorBuilder<NetSageSankeyOptions> }
  */
-export const plugin = new PanelPlugin<NetSageSankeyOptions>(NetSageSankey).setPanelOptions(builder => {
-  return builder.addBooleanSwitch({
-    path: 'showWarmColors',
-    name: 'Show warm colors',
-    defaultValue: true,
-  });
-});
+export const plugin = new PanelPlugin<NetSageSankeyOptions>(NetSageSankey)
+  .setPanelOptions((builder) => {
+    builder
+      .addRadio({
+        path: 'colorTheme',
+        name: 'Color Theme',
+        description: 'Choose whether colors should be warm or cool',
+        settings: {
+          options: [
+            { value: 'warm', label: 'Warm' },
+            { value: 'cool', label: 'Cool' },
+          ],
+        },
+        defaultValue: 'warm',
+      });
+  })
+  .useFieldConfig({});
