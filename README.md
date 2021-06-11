@@ -38,5 +38,5 @@ This is a NetSage panel plugin for generating Sankey diagrams in Grafana 7.0+. T
    
    ```
 
->[!Note]
+> :warning:
 Grafana 8 requires all plugins to be signed by default. To run unsigned plugins during dev, set `app_mode = development` in **grafana.ini** (typically _/etc/grafana/grafana.ini_) and restart grafana.
