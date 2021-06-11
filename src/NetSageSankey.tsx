@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { PanelProps } from '@grafana/data';
+import React, { useEffect, useRef } from 'react';
+import { DataFrameView, PanelProps } from '@grafana/data';
 import { NetSageSankeyOptions } from 'types';
 import * as d3 from 'd3';
 import * as d3Sankey from 'd3-sankey';
@@ -97,27 +97,51 @@ export const NetSageSankey: React.FC<Props> = ({ options, data, width, height }:
    *
    * @return {*}
    */
-  const Sankey = () => {
-    const [jsonData, setData] = useState(null);
+  const Sankey = (): any => {
+    let pluginDataLinks: Array<{ source: number; target: number; value: number }> = [];
+    let pluginDataNodes: Array<{ name: any }> = [];
 
-    // TODO - Replace test data with data passed to plugin
-    useEffect(() => {
-      fetch('https://raw.githubusercontent.com/ozlongblack/d3/master/energy.json')
-        .then(res => res.json())
-        .then(data => setData(data));
-    }, []);
+    const frame = data.series[0];
+    const view = new DataFrameView(frame);
+
+    // Retrieve panel data from panel
+    // TODO: Switch our hard coded field names in lieu of plugin options
+    view.forEach((row) => {
+      const src = row['meta.src_preferred_org'];
+      const link = row['meta.scireg.src.discipline'];
+      const dest = row['meta.dst_preferred_org'];
+      const sum = row.Sum / 1000000000000; // Convert to TeraBytes
+
+      let sIndex = pluginDataNodes.findIndex((e) => e.name === `${src} (src)`);
+      let lIndex = pluginDataNodes.findIndex((e) => e.name === `${link} (src)`);
+      let dIndex = pluginDataNodes.findIndex((e) => e.name === `${dest} (dst)`);
+
+      if (sIndex === -1) {
+        sIndex = pluginDataNodes.push({ name: `${src} (src)` }) - 1;
+      }
+      if (lIndex === -1) {
+        lIndex = pluginDataNodes.push({ name: `${link} (src)` }) - 1;
+      }
+      if (dIndex === -1) {
+        dIndex = pluginDataNodes.push({ name: `${dest} (dst)` }) - 1;
+      }
+
+      pluginDataLinks.push({ source: sIndex, target: lIndex, value: sum });
+      pluginDataLinks.push({ source: lIndex, target: dIndex, value: sum });
+    });
+    const pluginData = { links: pluginDataLinks, nodes: pluginDataNodes };
 
     const dragElement: any = useRef(null);
     const graph: any = useRef(null);
     const offset: any = useRef(null);
 
     // Color scheme set by toggle switch in plugin UI
-    const colors = options.showWarmColors ? d3.interpolateWarm : d3.interpolateCool;
+    const colors = options.colorTheme === 'cool' ? d3.interpolateCool : d3.interpolateWarm;
     const sankey: any = d3Sankey
       .sankey()
       .nodeAlign(d3Sankey.sankeyJustify)
       .nodeWidth(10)
-      .nodePadding(10)
+      .nodePadding(20)
       .extent([
         [0, 0],
         [width, height],
@@ -154,20 +178,22 @@ export const NetSageSankey: React.FC<Props> = ({ options, data, width, height }:
       };
     }, []);
 
-    if (jsonData) {
-      graph.current = sankey(jsonData);
+    // Return an SVG group only if data exists
+    if (pluginData) {
+      graph.current = sankey(pluginData);
       const { links, nodes } = graph.current;
 
       return (
         <svg width={width} height={height}>
           <g>
             {links.map((d: { width: any }, i: any) => (
-              <Link data={d} width={d.width} length={nodes.length} colors={colors} />
+              <Link key={i} data={d} width={d.width} length={nodes.length} colors={colors} />
             ))}
           </g>
           <g>
             {nodes.map((d: { index: any; x0: any; x1: any; y0: any; y1: any; name: any; value: any }, i: any) => (
               <Rect
+                key={i}
                 index={d.index}
                 x0={d.x0}
                 x1={d.x1}
