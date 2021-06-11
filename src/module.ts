@@ -10,18 +10,17 @@ import { NetSageSankey } from './NetSageSankey';
  */
 export const plugin = new PanelPlugin<NetSageSankeyOptions>(NetSageSankey)
   .setPanelOptions((builder) => {
-    builder
-      .addRadio({
-        path: 'colorTheme',
-        name: 'Color Theme',
-        description: 'Choose whether colors should be warm or cool',
-        settings: {
-          options: [
-            { value: 'warm', label: 'Warm' },
-            { value: 'cool', label: 'Cool' },
-          ],
-        },
-        defaultValue: 'warm',
-      });
+    builder.addRadio({
+      path: 'colorTheme',
+      name: 'Color Theme',
+      description: 'Choose whether colors should be warm or cool',
+      settings: {
+        options: [
+          { value: 'warm', label: 'Warm' },
+          { value: 'cool', label: 'Cool' },
+        ],
+      },
+      defaultValue: 'warm',
+    });
   })
   .useFieldConfig({});
