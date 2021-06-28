@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { DataFrameView, PanelProps } from '@grafana/data';
-import { NetSageSankeyOptions } from 'types';
+import { SankeyOptions } from 'types';
 import * as d3 from 'd3';
 import * as d3Sankey from 'd3-sankey';
 
-interface Props extends PanelProps<NetSageSankeyOptions> {}
+interface Props extends PanelProps<SankeyOptions> {}
 
 /**
  * Grafana Sankey diagram panel
@@ -12,7 +12,7 @@ interface Props extends PanelProps<NetSageSankeyOptions> {}
  * @param {*} { options, data, width, height }
  * @return {*} { React.FC<Props> }
  */
-export const NetSageSankey: React.FC<Props> = ({ options, data, width, height }: any): any => {
+export const SankeyPanel: React.FC<Props> = ({ options, data, width, height }: any): any => {
   /**
    * Return mouse coordinates on mouse events
    *

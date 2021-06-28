@@ -1,14 +1,29 @@
-import { PanelPlugin } from '@grafana/data';
-import { NetSageSankeyOptions } from './types';
-import { NetSageSankey } from './NetSageSankey';
+import { PanelPlugin, FieldConfigProperty } from '@grafana/data';
+import { standardOptionsCompat } from 'grafana-plugin-support';
+import { SankeyOptions, SankeyFieldConfig } from './types';
+import { SankeyPanel } from './SankeyPanel';
+
+// import { standardOptionsCompat } from 'grafana-plugin-support';
 
 /**
  * Grafana panel plugin main module
  *
- * @param {*} { panel: React.ComponentType<PanelProps<NetSageSankeyOptions>> | null }
- * @return {*} { builder: PanelOptionsEditorBuilder<NetSageSankeyOptions> }
+ * @param {*} { panel: React.ComponentType<PanelProps<SankeyOptions>> | null }
+ * @return {*} { builder: PanelOptionsEditorBuilder<SankeyOptions> }
  */
-export const plugin = new PanelPlugin<NetSageSankeyOptions>(NetSageSankey)
+const buildStandardOptions = (): any => {
+  const options = [
+    FieldConfigProperty.Decimals,
+    FieldConfigProperty.Unit,
+    // FieldConfigProperty.Color,
+  ];
+
+  return standardOptionsCompat(options);
+};
+
+const monochromeBool = (monochrome: boolean) => (config: SankeyFieldConfig) => config.monochrome === monochrome;
+
+export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
   .setPanelOptions((builder) => {
     builder.addRadio({
       path: 'colorTheme',
@@ -23,4 +38,20 @@ export const plugin = new PanelPlugin<NetSageSankeyOptions>(NetSageSankey)
       defaultValue: 'warm',
     });
   })
-  .useFieldConfig({});
+  .useFieldConfig({
+    useCustomConfig: (builder) => {
+      builder
+        .addBooleanSwitch({
+          path: 'monochrome',
+          name: 'Single color only',
+          defaultValue: false,
+        })
+        .addColorPicker({
+          path: 'color',
+          name: 'Color',
+          showIf: monochromeBool(true),
+          defaultValue: 'blue',
+        });
+    },
+    standardOptions: buildStandardOptions(),
+  });
