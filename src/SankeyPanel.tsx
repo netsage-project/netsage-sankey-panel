@@ -106,7 +106,7 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height }: a
     const sankey: any = d3Sankey
       .sankey()
       .nodeAlign(d3Sankey.sankeyJustify)
-      .nodeWidth(10)
+      .nodeWidth(20)
       .nodePadding(20)
       .extent([
         [0, 0],
@@ -150,13 +150,5 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height }: a
   };
 
   return Sankey();
-  // var parsedData: any[] = [];
-  // try {
-  //   parsedData = parseData(data, options);
-  // } catch (error) {
-  //   console.error('parsing error: ', error);
-  // }
-  // const displayNames = parsedData[1];
 
-  // return JSON.stringify(displayNames);
 };

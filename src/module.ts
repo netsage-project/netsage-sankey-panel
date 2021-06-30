@@ -1,6 +1,6 @@
 import { PanelPlugin, FieldConfigProperty } from '@grafana/data';
 import { standardOptionsCompat } from 'grafana-plugin-support';
-import { SankeyOptions, SankeyFieldConfig } from './types';
+import { SankeyOptions } from './types';
 import { SankeyPanel } from './SankeyPanel';
 
 // import { standardOptionsCompat } from 'grafana-plugin-support';
@@ -21,37 +21,23 @@ const buildStandardOptions = (): any => {
   return standardOptionsCompat(options);
 };
 
-const monochromeBool = (monochrome: boolean) => (config: SankeyFieldConfig) => config.monochrome === monochrome;
+const monochromeBool = (monochrome: boolean) => (config: SankeyOptions) => config.monochrome === monochrome;
 
 export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
-  // .setPanelOptions((builder) => {
-  //   builder.addRadio({
-  //     path: 'colorTheme',
-  //     name: 'Color Theme',
-  //     description: 'Choose whether colors should be warm or cool',
-  //     settings: {
-  //       options: [
-  //         { value: 'warm', label: 'Warm' },
-  //         { value: 'cool', label: 'Cool' },
-  //       ],
-  //     },
-  //     defaultValue: 'warm',
-  //   });
-  // })
+  .setPanelOptions((builder) => {
+    builder
+      .addBooleanSwitch({
+        path: 'monochrome',
+        name: 'Single color only',
+        defaultValue: false,
+      })
+      .addColorPicker({
+        path: 'color',
+        name: 'Color',
+        showIf: monochromeBool(true),
+        defaultValue: 'blue',
+      });
+  })
   .useFieldConfig({
-    useCustomConfig: (builder) => {
-      builder
-        .addBooleanSwitch({
-          path: 'monochrome',
-          name: 'Single color only',
-          defaultValue: false,
-        })
-        .addColorPicker({
-          path: 'color',
-          name: 'Color',
-          showIf: monochromeBool(true),
-          defaultValue: 'blue',
-        });
-    },
     standardOptions: buildStandardOptions(),
   });
