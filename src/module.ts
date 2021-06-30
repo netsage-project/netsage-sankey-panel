@@ -24,20 +24,20 @@ const buildStandardOptions = (): any => {
 const monochromeBool = (monochrome: boolean) => (config: SankeyFieldConfig) => config.monochrome === monochrome;
 
 export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
-  .setPanelOptions((builder) => {
-    builder.addRadio({
-      path: 'colorTheme',
-      name: 'Color Theme',
-      description: 'Choose whether colors should be warm or cool',
-      settings: {
-        options: [
-          { value: 'warm', label: 'Warm' },
-          { value: 'cool', label: 'Cool' },
-        ],
-      },
-      defaultValue: 'warm',
-    });
-  })
+  // .setPanelOptions((builder) => {
+  //   builder.addRadio({
+  //     path: 'colorTheme',
+  //     name: 'Color Theme',
+  //     description: 'Choose whether colors should be warm or cool',
+  //     settings: {
+  //       options: [
+  //         { value: 'warm', label: 'Warm' },
+  //         { value: 'cool', label: 'Cool' },
+  //       ],
+  //     },
+  //     defaultValue: 'warm',
+  //   });
+  // })
   .useFieldConfig({
     useCustomConfig: (builder) => {
       builder

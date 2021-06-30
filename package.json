@@ -12,7 +12,8 @@
     "start": "yarn watch"
   },
   "dependencies": {
-    "d3-sankey": "latest"
+    "d3-sankey": "latest",
+    "grafana-plugin-support": "latest"
   },
   "author": "NetSage",
   "license": "Apache-2.0",
