@@ -64,5 +64,5 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
 
   //
 
-  return [ pluginData, displayNames ];
+  return [pluginData, displayNames];
 }
