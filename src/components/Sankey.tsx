@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import * as d3Sankey from 'd3-sankey';
 
 export default class Sankey {
-    constructor(id) {
+    constructor(id: any) {
         this.containerID = id;
     }
 
@@ -12,7 +12,7 @@ export default class Sankey {
      * @param
      */
 
-    renderSankey(parsedData) {
+    renderSankey(parsedData: any[] | Iterable<any>, width: number, height: number) {
         if (!parsedData) {
             return;
         }
@@ -28,8 +28,8 @@ export default class Sankey {
 
         console.log('rendering Graph...');
 
-        let panelWidth = document.getElementById(this.containerID).offsetWidth;
-        let panelHeight = document.getElementById(this.containerID).offsetHeight;
+        let panelWidth = width;
+        let panelHeight = height;
 
         // set the dimensions and margins of the graph
         var margin = { top: 50, right: 400, bottom: 25, left: 400 },
@@ -44,63 +44,9 @@ export default class Sankey {
             .attr('height', height + margin.top + margin.bottom)
             .append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-    }
-    /**
-   * Create Sankey rectangular nodes with text
-   *
-   * @param {*} { index, x0, x1, y0, y1, name, length }
-   * @return {*}  {*}
-   */
-    const Rect = ({ index, x0, x1, y0, y1, name, length }: any): any => {
-        return (
-            <>
-                <rect x={x0} y={y0} width={x1 - x0} height={y1 - y0} data-index={index} />
-                <text
-                    x={x0 < width / 2 ? x1 + 6 : x0 - 6}
-                    y={(y1 + y0) / 2}
-                    style={{
-                        // fill: d3
-                        //     .rgb(colors(index / length))
-                        //     .darker()
-                        //     .toString(),
-                        alignmentBaseline: 'middle',
-                        fontSize: 16,
-                        textAnchor: x0 < width / 2 ? 'start' : 'end',
-                        pointerEvents: 'none',
-                        userSelect: 'none',
-                    }}
-                >
-                    {name}
-                </text>
-            </>
-        );
-    };
 
-    /**
-     * Create Sankey links between nodes
-     *
-     * @param {*} { data, width, length }
-     * @return {*}
-     */
-    const Link = ({ data, width, length }: any): any => {
-        const link: any = d3Sankey.sankeyLinkHorizontal();
-
-        return (
-            <path
-                d={link(data)}
-                fill={'none'}
-                stroke={`url(#gradient-${data.index})`}
-                strokeOpacity={0.5}
-                strokeWidth={width}
-            />
-        );
-    };
-    /**
-     * Main Sankey generator
-     *
-     */
-    const Sankey = (): any => {
-        const sankey: any = d3Sankey
+        // Constructs a new Sankey generator with the default settings.
+        var sankey: any = d3Sankey
             .sankey()
             .nodeAlign(d3Sankey.sankeyJustify)
             .nodeWidth(20)
@@ -110,39 +56,93 @@ export default class Sankey {
                 [width, height],
             ]);
 
-        // Return an SVG group only if data exists
-        if (pluginData) {
-            // graph.current = sankey(pluginData);
-            // const { links, nodes } = graph.current;
-            const { links, nodes } = sankey(pluginData);
+        sankey
+            .nodes(graph.nodes)
+            .links(graph.links)
+            .layout(1);
 
-            return (
-                <svg width={width} height={height}>
-                    <g>
-                        {links.map((d: { width: any }, i: any) => (
-                            <Link key={i} data={d} width={d.width} length={nodes.length} colors={colors} />
-                        ))}
-                    </g>
-                    <g>
-                        {nodes.map((d: { index: any; x0: any; x1: any; y0: any; y1: any; name: any; value: any }, i: any) => (
-                            <Rect
-                                key={i}
-                                index={d.index}
-                                x0={d.x0}
-                                x1={d.x1}
-                                y0={d.y0}
-                                y1={d.y1}
-                                name={d.name}
-                                value={d.value}
-                                length={nodes.length}
-                                colors={colors}
-                            />
-                        ))}
-                    </g>
-                </svg>
-            );
-        }
+        // add in the links
+        var link = svg.append("g")
+            .selectAll(".link")
+            .data(graph.links)
+            .enter()
+            .append("path")
+            .attr("class", "link")
+            .attr("d", sankey.link())
+            .style("stroke-width", function (d) { return Math.max(1, d.dy); })
+            .sort(function (a, b) { return b.dy - a.dy; });
 
-        return <svg width={width} height={height}></svg>;
+        var node = svg.append("g")
+            .selectAll(".node")
+            .data(parsedData)
+            .enter().append("g")
+            .attr("class", "node")
+            .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; })
+            .call(d3.drag()
+                .subject(function (d) { return d; })
+                .on("start", function () { this.parentNode.appendChild(this); })
+                .on("drag", dragmove));
+
+        // add the rectangles for the nodes
+        node
+            .append("rect")
+            .attr("height", function (d) { return d.dy; })
+            .attr("width", sankey.nodeWidth())
+            .style("fill", function (d) { return d.color = color(d.name.replace(/ .*/, "")); })
+            .style("stroke", function (d) { return d3.rgb(d.color).darker(2); })
+            // Add hover text
+            .append("title")
+            .text(function (d) { return d.name + "\n" + "There is " + d.value + " stuff in this node"; });
     }
+
+    // /**
+    //  * Main Sankey generator
+    //  *
+    //  */
+    // const Sankey = (): any => {
+    //     const sankey: any = d3Sankey
+    //         .sankey()
+    //         .nodeAlign(d3Sankey.sankeyJustify)
+    //         .nodeWidth(20)
+    //         .nodePadding(20)
+    //         .extent([
+    //             [0, 0],
+    //             [width, height],
+    //         ]);
+
+    //     // Return an SVG group only if data exists
+    //     if (pluginData) {
+    //         // graph.current = sankey(pluginData);
+    //         // const { links, nodes } = graph.current;
+    //         const { links, nodes } = sankey(pluginData);
+
+    //         return (
+    //             <svg width={width} height={height}>
+    //                 <g>
+    //                     {links.map((d: { width: any }, i: any) => (
+    //                         <Link key={i} data={d} width={d.width} length={nodes.length} colors={colors} />
+    //                     ))}
+    //                 </g>
+    //                 <g>
+    //                     {nodes.map((d: { index: any; x0: any; x1: any; y0: any; y1: any; name: any; value: any }, i: any) => (
+    //                         <Rect
+    //                             key={i}
+    //                             index={d.index}
+    //                             x0={d.x0}
+    //                             x1={d.x1}
+    //                             y0={d.y0}
+    //                             y1={d.y1}
+    //                             name={d.name}
+    //                             value={d.value}
+    //                             length={nodes.length}
+    //                             colors={colors}
+    //                         />
+    //                     ))}
+    //                 </g>
+    //             </svg>
+    //         );
+    //     }
+
+    //     return <svg width={width} height={height}></svg>;
+    // }
 }
