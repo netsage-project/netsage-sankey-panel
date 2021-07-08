@@ -30,7 +30,7 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
   // display converts value to display value with units
   // name = name of field
 
-  let pluginDataLinks: Array<{ source: number; target: number; value: number; id: string }> = [];
+  let pluginDataLinks: Array<{ source: number; target: number; value: number; displayValue: any; id: string }> = [];
   let pluginDataNodes: Array<{ name: any; id: any }> = [];
 
   const series = data.series[0];
@@ -51,10 +51,13 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
     }
     // create all the individual links, value is always the last column
     for (let i = 0; i < currentLink.length - 1; i++) {
+      var fieldValues = valueField[0].display(row[numFields]);
+      var displayValue = `${fieldValues.text} ${fieldValues.suffix}`;
       pluginDataLinks.push({
         source: currentLink[i],
         target: currentLink[i + 1],
         value: row[numFields],
+        displayValue: displayValue,
         id: `row${id}`,
       });
     }
