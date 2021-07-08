@@ -15,7 +15,7 @@ export const Link: React.FC<LinkProps> = ({ data, width, length, colors }) => {
 
   return (
     <>
-      <path d={link(data)} fill={'none'} stroke={strokeColor} strokeOpacity={0.5} strokeWidth={width} />
+      <path d={link(data)} fill={'none'} stroke={strokeColor} strokeOpacity={0.5} strokeWidth={width} id={data.id} />
     </>
   );
 };

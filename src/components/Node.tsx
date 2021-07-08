@@ -26,7 +26,7 @@ export const Node: React.FC<NodeProps> = ({ values, data, index, x0, x1, y0, y1,
   const fillColor = '#828282';
   return (
     <>
-      <rect x={x0} y={y0} width={width} height={y1 - y0} fill={fillColor} data-index={index} />
+      <rect x={x0} y={y0} width={width} height={y1 - y0} fill={fillColor} data-index={index} id={data.id} />
       <text
         x={x0 < width / 2 ? x1 + 6 : x0 - 6}
         y={(y1 + y0) / 2}

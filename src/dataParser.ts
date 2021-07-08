@@ -31,13 +31,13 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
   // name = name of field
 
   let pluginDataLinks: Array<{ source: number; target: number; value: number; id: string }> = [];
-  let pluginDataNodes: Array<{ name: any }> = [];
+  let pluginDataNodes: Array<{ name: any; id: any }> = [];
 
   const series = data.series[0];
   const frame = new DataFrameView(series);
 
   // Retrieve panel data from panel
-
+  var id = 0; // update after each row
   frame.forEach((row) => {
     let currentLink = [];
     // go through columns to find all nodes
@@ -45,7 +45,7 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
       let node = row[i];
       let index = pluginDataNodes.findIndex((e) => e.name === `${node} (col ${i})`);
       if (index === -1) {
-        index = pluginDataNodes.push({ name: `${node} (col ${i})` }) - 1;
+        index = pluginDataNodes.push({ name: `${node} (col ${i})`, id: 'row${id}' }) - 1;
       }
       currentLink.push(index);
     }
@@ -55,9 +55,10 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
         source: currentLink[i],
         target: currentLink[i + 1],
         value: row[numFields],
-        id: `id ${row}`,
+        id: `row${id}`,
       });
     }
+    id++;
   });
   const pluginData = { links: pluginDataLinks, nodes: pluginDataNodes };
   console.log(pluginData);
