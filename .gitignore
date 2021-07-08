@@ -31,6 +31,5 @@ e2e-results/
 .vscode
 
 # lock files
-yarn.lock
 package-lock.json
 *.lock
