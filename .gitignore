@@ -29,3 +29,7 @@ e2e-results/
 # Editors
 .idea
 .vscode
+
+# lock files
+package-lock.json
+*.lock

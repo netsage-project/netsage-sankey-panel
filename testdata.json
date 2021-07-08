@@ -1,0 +1,239 @@
+{
+    "state": "Done",
+    "series": [
+        {
+            "fields": [
+                {
+                    "name": "meta.src_country_name.keyword",
+                    "config": {
+                        "filterable": true
+                    },
+                    "values": [
+                        "United States",
+                        "United States",
+                        "United States",
+                        "United Kingdom",
+                        "United Kingdom",
+                        "United Kingdom",
+                        "Switzerland",
+                        "Switzerland",
+                        "Switzerland",
+                        "France",
+                        "France",
+                        "Germany",
+                        "Germany",
+                        "Germany"
+                    ],
+                    "type": "string",
+                    "state": {
+                        "displayName": "meta.src_country_name.keyword",
+                        "scopedVars": {
+                            "__series": {
+                                "text": "Series",
+                                "value": {
+                                    "name": "Series (A)"
+                                }
+                            },
+                            "__field": {
+                                "text": "Field",
+                                "value": {}
+                            }
+                        },
+                        "seriesIndex": 1
+                    }
+                },
+                {
+                    "name": "meta.dst_country_name.keyword",
+                    "config": {
+                        "filterable": true
+                    },
+                    "values": [
+                        "United States",
+                        "Germany",
+                        "Switzerland",
+                        "United States",
+                        "China",
+                        "Unknown",
+                        "United States",
+                        "South Korea",
+                        "Australia",
+                        "United States",
+                        "Unknown",
+                        "United States",
+                        "Unknown",
+                        "Japan"
+                    ],
+                    "type": "string",
+                    "state": {
+                        "displayName": "meta.dst_country_name.keyword",
+                        "scopedVars": {
+                            "__series": {
+                                "text": "Series",
+                                "value": {
+                                    "name": "Series (A)"
+                                }
+                            },
+                            "__field": {
+                                "text": "Field",
+                                "value": {}
+                            }
+                        },
+                        "seriesIndex": 2
+                    }
+                },
+                {
+                    "name": "Sum",
+                    "config": {},
+                    "values": [
+                        6591006214715200,
+                        400031293785920,
+                        395558362197312,
+                        215216756871104,
+                        31440813432448,
+                        29828136288192,
+                        227581403278912,
+                        271210295808,
+                        98487239936,
+                        156279049180544,
+                        103914760000,
+                        136382986744640,
+                        1522905899776,
+                        159952000
+                    ],
+                    "type": "number",
+                    "state": {
+                        "displayName": "Sum",
+                        "scopedVars": {
+                            "__series": {
+                                "text": "Series",
+                                "value": {
+                                    "name": "Series (A)"
+                                }
+                            },
+                            "__field": {
+                                "text": "Field",
+                                "value": {}
+                            }
+                        },
+                        "calcs": {
+                            "sum": 8185321694641792,
+                            "max": 6591006214715200,
+                            "min": 159952000,
+                            "logmin": 159952000,
+                            "mean": 584665835331556.6,
+                            "last": 159952000,
+                            "first": 6591006214715200,
+                            "lastNotNull": 159952000,
+                            "firstNotNull": 6591006214715200,
+                            "count": 14,
+                            "nonNullCount": 14,
+                            "allIsNull": false,
+                            "allIsZero": false,
+                            "range": 6591006054763200,
+                            "diff": -6591006054763200,
+                            "delta": 520243599156096,
+                            "step": -6190974920929280,
+                            "diffperc": -0.9999999757317783,
+                            "previousDeltaUp": false
+                        },
+                        "seriesIndex": 3,
+                        "range": {
+                            "min": 159952000,
+                            "max": 6591006214715200,
+                            "delta": 6591006054763200
+                        }
+                    }
+                }
+            ],
+            "refId": "A",
+            "length": 14
+        }
+    ],
+    "annotations": [],
+    "request": {
+        "app": "dashboard",
+        "requestId": "Q135",
+        "timezone": "browser",
+        "panelId": 23763571993,
+        "dashboardId": null,
+        "range": {
+            "from": "2021-06-25T15:29:38.937Z",
+            "to": "2021-06-25T21:29:38.937Z",
+            "raw": {
+                "from": "now-6h",
+                "to": "now"
+            }
+        },
+        "timeInfo": "",
+        "interval": "5m",
+        "intervalMs": 300000,
+        "targets": [
+            {
+                "refId": "A",
+                "query": "",
+                "alias": "",
+                "metrics": [
+                    {
+                        "id": "1",
+                        "type": "sum",
+                        "field": "values.num_bits"
+                    }
+                ],
+                "bucketAggs": [
+                    {
+                        "id": "2",
+                        "type": "terms",
+                        "settings": {
+                            "min_doc_count": "1",
+                            "size": "5",
+                            "order": "desc",
+                            "orderBy": "1"
+                        },
+                        "field": "meta.src_country_name.keyword"
+                    },
+                    {
+                        "id": "3",
+                        "type": "terms",
+                        "settings": {
+                            "min_doc_count": "1",
+                            "size": "3",
+                            "order": "desc",
+                            "orderBy": "1"
+                        },
+                        "field": "meta.dst_country_name.keyword"
+                    }
+                ],
+                "timeField": "start",
+                "datasource": "Flow - Rollup by Edge ASNs (5m)"
+            }
+        ],
+        "maxDataPoints": 1159,
+        "scopedVars": {
+            "__interval": {
+                "text": "5m",
+                "value": "5m"
+            },
+            "__interval_ms": {
+                "text": "300000",
+                "value": 300000
+            }
+        },
+        "startTime": 1624656578937,
+        "rangeRaw": {
+            "from": "now-6h",
+            "to": "now"
+        },
+        "endTime": 1624656581153
+    },
+    "timeRange": {
+        "from": "2021-06-25T15:29:38.937Z",
+        "to": "2021-06-25T21:29:38.937Z",
+        "raw": {
+            "from": "now-6h",
+            "to": "now"
+        }
+    },
+    "timings": {
+        "dataProcessingTime": 0.7199999818112701
+    }
+}

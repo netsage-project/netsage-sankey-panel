@@ -1,3 +1,6 @@
-export interface NetSageSankeyOptions {
-  colorTheme: string;
+export interface SankeyOptions {
+  monochrome: boolean;
+  color: string;
 }
+
+export interface SankeyFieldConfig {}

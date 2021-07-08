@@ -1,6 +1,6 @@
 {
-  "name": "netsage-sankey-v3",
-  "version": "1.0.0",
+  "name": "netsage-sankey-panel",
+  "version": "0.0.1",
   "description": "NetSage Sankey Plugin for Grafana 7.0+",
   "private": true,
   "scripts": {
@@ -12,7 +12,9 @@
     "start": "yarn watch"
   },
   "dependencies": {
-    "d3-sankey": "latest"
+    "d3": ">=7.0.0",
+    "d3-sankey": "latest",
+    "grafana-plugin-support": "latest"
   },
   "author": "NetSage",
   "license": "Apache-2.0",
