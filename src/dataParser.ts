@@ -45,7 +45,7 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
       let node = row[i];
       let index = pluginDataNodes.findIndex((e) => e.name === `${node} (col ${i})`);
       if (index === -1) {
-        index = pluginDataNodes.push({ name: `${node} (col ${i})`, id: 'row${id}' }) - 1;
+        index = pluginDataNodes.push({ name: `${node} (col ${i})`, id: `row${id}` }) - 1;
       }
       currentLink.push(index);
     }
