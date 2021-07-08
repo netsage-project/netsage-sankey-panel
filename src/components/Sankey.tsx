@@ -50,7 +50,7 @@ export const Sankey: React.FC<SankeyProps> = ({ data, width, height, displayValu
         <g>
           {nodes.map((d: { index: any; x0: any; x1: any; y0: any; y1: any; name: any; value: any }, i: any) => (
             <Node
-              data={data}
+              data={d}
               key={i}
               index={d.index}
               x0={d.x0}
