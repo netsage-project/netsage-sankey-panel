@@ -1,7 +1,23 @@
 import { DataFrameView, Field, getFieldDisplayName, Vector } from '@grafana/data';
 
-export function parseData(data: { series: any[] }, options: { valueFieldName: any }) {
+export function parseData(data: { series: any[] }, options: { valueFieldName: any }, monochrome: boolean, color: any) {
   const { valueFieldName } = options;
+
+  /**
+   * Colors
+   * if monochrome = true, set all colors to value: color
+   * else, set to multi color
+   */
+  const colorArray: string[] = [];
+  if (monochrome) {
+    colorArray.push(color);
+  } else {
+    colorArray.push('#DB0088');
+    colorArray.push('#DB8500');
+    colorArray.push('#7C00DB');
+    colorArray.push('#018EDB');
+    colorArray.push('#00DB57');
+  }
 
   var allData = data.series[0].fields;
   var numFields = allData.length - 1;

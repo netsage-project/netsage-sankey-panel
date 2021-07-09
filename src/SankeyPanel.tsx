@@ -15,6 +15,9 @@ interface Props extends PanelProps<SankeyOptions> {}
  * @return {*} { React.FC<Props> }
  */
 export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id }: any): any => {
+  let graphOptions = {
+    ...options,
+  };
   /**
    * Feed data and options into data parser.
    * @param {*} { data, options }
@@ -22,7 +25,7 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
    */
   var parsedData: any[] = [];
   try {
-    parsedData = parseData(data, options);
+    parsedData = parseData(data, options, graphOptions.monochrome, graphOptions.color);
   } catch (error) {
     console.error('parsing error: ', error);
   }
