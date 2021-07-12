@@ -12,7 +12,8 @@ interface NodeProps {
   y1: number;
   name: string;
   length: number;
-  colors: any;
+  textColor: string;
+  nodeColor: string;
 }
 
 /**
@@ -21,17 +22,42 @@ interface NodeProps {
  * @param {*} { index, x0, x1, y0, y1, name, length, colors }
  * @return {*}  {*}
  */
-export const Node: React.FC<NodeProps> = ({ values, data, index, x0, x1, y0, y1, name, length, colors }) => {
+export const Node: React.FC<NodeProps> = ({
+  values,
+  data,
+  index,
+  x0,
+  x1,
+  y0,
+  y1,
+  name,
+  length,
+  textColor,
+  nodeColor,
+}) => {
   const width = x1 - x0;
-  const fillColor = '#828282';
+  // const fillColor = '#828282';
+  const strokeColor = 'black';
+
   return (
     <>
-      <rect x={x0} y={y0} width={width} height={y1 - y0} fill={fillColor} data-index={index} id={data.id} />
+      <rect
+        x={x0}
+        y={y0}
+        rx={5}
+        ry={5}
+        width={width}
+        height={y1 - y0}
+        stroke={strokeColor}
+        fill={nodeColor}
+        data-index={index}
+        id={data.id}
+      />
       <text
         x={x0 < width / 2 ? x1 + 6 : x0 - 6}
         y={(y1 + y0) / 2}
         style={{
-          fill: fillColor,
+          fill: textColor,
           alignmentBaseline: 'middle',
           fontSize: 16,
           textAnchor: x0 < width / 2 ? 'start' : 'end',

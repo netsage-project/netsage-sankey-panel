@@ -28,14 +28,24 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
     builder
       .addBooleanSwitch({
         path: 'monochrome',
-        name: 'Single color only',
+        name: 'Single Link color only',
         defaultValue: false,
       })
       .addColorPicker({
         path: 'color',
-        name: 'Color',
+        name: 'Link Color',
         showIf: monochromeBool(true),
         defaultValue: 'blue',
+      })
+      .addColorPicker({
+        path: 'textColor',
+        name: 'Text color',
+        defaultValue: 'black',
+      })
+      .addColorPicker({
+        path: 'nodeColor',
+        name: 'Node color',
+        defaultValue: 'grey',
       });
   })
   .useFieldConfig({

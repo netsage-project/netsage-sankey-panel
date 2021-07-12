@@ -12,10 +12,10 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
   if (monochrome) {
     colorArray.push(color);
   } else {
-    colorArray.push('#DB0088');
+    colorArray.push('#018EDB');
     colorArray.push('#DB8500');
     colorArray.push('#7C00DB');
-    colorArray.push('#018EDB');
+    colorArray.push('#DB0600');
     colorArray.push('#00DB57');
   }
 
@@ -46,26 +46,44 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
   // display converts value to display value with units
   // name = name of field
 
-  let pluginDataLinks: Array<{ source: number; target: number; value: number; displayValue: any; id: string }> = [];
-  let pluginDataNodes: Array<{ name: any; id: any }> = [];
-
   const series = data.series[0];
   const frame = new DataFrameView(series);
 
+  let pluginDataLinks: Array<{
+    source: number;
+    target: number;
+    value: number;
+    displayValue: any;
+    id: string;
+    color: any;
+    node0: any;
+  }> = [];
+  let pluginDataNodes: Array<{ name: any; id: any; colId: number }> = [];
+  let col0: Array<{ name: any; index: number; color: any }> = [];
+  var rowId = 0; // update after each row
+  var currentColor;
+
   // Retrieve panel data from panel
-  var id = 0; // update after each row
   frame.forEach((row) => {
-    let currentLink = [];
+    let currentLink: number[] = [];
     // go through columns to find all nodes
     for (let i = 0; i < numFields; i++) {
       let node = row[i];
-      let index = pluginDataNodes.findIndex((e) => e.name === `${node} (col ${i})`);
+      let index = pluginDataNodes.findIndex((e) => e.name === node && e.colId === i);
       if (index === -1) {
-        index = pluginDataNodes.push({ name: `${node} (col ${i})`, id: `row${id}` }) - 1;
+        index = pluginDataNodes.push({ name: node, id: [`row${rowId}`], colId: i }) - 1;
+        if (i === 0) {
+          currentColor = colorArray[col0.length % colorArray.length];
+          col0.push({ name: node, index: index, color: currentColor });
+        }
+      } else {
+        pluginDataNodes[index].id.push(`row${rowId}`); // might not need?
       }
       currentLink.push(index);
     }
     // create all the individual links, value is always the last column
+    // let rowColor = colorArray[currentLink[0] % colorArray.length];
+    let rowColor = col0.find((e) => e.index === currentLink[0])?.color;
     for (let i = 0; i < currentLink.length - 1; i++) {
       var fieldValues = valueField[0].display(row[numFields]);
       var displayValue = `${fieldValues.text} ${fieldValues.suffix}`;
@@ -74,15 +92,15 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
         target: currentLink[i + 1],
         value: row[numFields],
         displayValue: displayValue,
-        id: `row${id}`,
+        id: `row${rowId}`,
+        color: rowColor,
+        node0: currentLink[0],
       });
     }
-    id++;
+    rowId++;
   });
   const pluginData = { links: pluginDataLinks, nodes: pluginDataNodes };
   console.log(pluginData);
-
-  //
 
   return [pluginData, displayNames];
 }

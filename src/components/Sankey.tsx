@@ -17,12 +17,14 @@ interface SankeyProps {
   // onHover: (value?: number) => void;
   // tooltip: boolean;
   id: any;
+  textColor: string;
+  nodeColor: string;
 }
 
 /**
  * The sankey graph
  */
-export const Sankey: React.FC<SankeyProps> = ({ data, width, height, displayValues, id }) => {
+export const Sankey: React.FC<SankeyProps> = ({ data, width, height, displayValues, id, textColor, nodeColor }) => {
   console.log(displayValues);
 
   const sankey: any = d3Sankey
@@ -44,7 +46,7 @@ export const Sankey: React.FC<SankeyProps> = ({ data, width, height, displayValu
       <svg width={width} height={height}>
         <g>
           {links.map((d: { width: any }, i: any) => (
-            <Link key={i} data={d} width={d.width} length={nodes.length} colors={null} />
+            <Link key={i} data={d} width={d.width} length={nodes.length} />
           ))}
         </g>
         <g>
@@ -60,7 +62,8 @@ export const Sankey: React.FC<SankeyProps> = ({ data, width, height, displayValu
               name={d.name}
               values={d.value}
               length={nodes.length}
-              colors={null}
+              textColor={textColor}
+              nodeColor={nodeColor}
             />
           ))}
         </g>

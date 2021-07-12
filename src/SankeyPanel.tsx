@@ -34,7 +34,15 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
 
   return (
     <g>
-      <Sankey data={pluginData} displayValues={displayNames} width={width} height={height} id={id} />
+      <Sankey
+        data={pluginData}
+        displayValues={displayNames}
+        width={width}
+        height={height}
+        id={id}
+        textColor={graphOptions.textColor}
+        nodeColor={graphOptions.nodeColor}
+      />
     </g>
   );
 };

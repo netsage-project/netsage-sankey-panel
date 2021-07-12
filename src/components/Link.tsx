@@ -6,12 +6,13 @@ interface LinkProps {
   data: any;
   width: number;
   length: number;
-  colors: any;
+  // colors: any;
 }
 
-export const Link: React.FC<LinkProps> = ({ data, width, length, colors }) => {
+export const Link: React.FC<LinkProps> = ({ data, width, length }) => {
   const link: any = d3Sankey.sankeyLinkHorizontal();
-  const strokeColor = '#4ec1e0';
+  // const strokeColor = '#4ec1e0';
+  const strokeColor = data.color;
 
   return (
     <>
