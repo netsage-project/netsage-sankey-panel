@@ -1,9 +1,13 @@
+// import React from 'react';
 import React from 'react';
-// import React, { useEffect } from 'react';
+// import React, { useEffect, useState } from 'react';
 import { Link } from './Link';
 import { Node } from './Node';
 import * as d3Sankey from 'd3-sankey';
-// import Tooltip from './Tooltip-d3';
+// import * as d3 from 'd3';
+// import MousePosition from './MousePos';
+// import renderTooltip from './Tooltip-d3';
+import { Tooltip } from './Tooltip';
 
 // import '../css/styles.css';
 
@@ -34,6 +38,7 @@ export const Sankey: React.FC<SankeyProps> = ({ data, width, height, displayValu
       [0, 0],
       [width, height],
     ]);
+  Tooltip(data);
 
   // Return an SVG group only if data exists
   if (data) {

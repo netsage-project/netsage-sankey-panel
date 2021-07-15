@@ -1,5 +1,4 @@
 import React from 'react';
-import { Tooltip } from './Tooltip';
 // import * as d3 from 'd3';
 // import * as d3Sankey from 'd3-sankey';
 
@@ -57,7 +56,6 @@ export const Node: React.FC<NodeProps> = ({ data, length, textColor, nodeColor, 
       >
         {name}
       </text>
-      <Tooltip data={data} displayValues={displayValues} />
     </>
   );
 };
