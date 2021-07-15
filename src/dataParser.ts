@@ -86,6 +86,7 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
     let rowColor = col0.find((e) => e.index === currentLink[0])?.color;
     for (let i = 0; i < currentLink.length - 1; i++) {
       var fieldValues = valueField[0].display(row[numFields]);
+      // var displayValue = JSON.stringify(fieldValues);
       var displayValue = `${fieldValues.text} ${fieldValues.suffix}`;
       pluginDataLinks.push({
         source: currentLink[i],

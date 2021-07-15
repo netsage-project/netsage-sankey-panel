@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from './Link';
 import { Node } from './Node';
 import * as d3Sankey from 'd3-sankey';
+// import Tooltip from './Tooltip-d3';
 
 // import '../css/styles.css';
 
@@ -25,8 +26,6 @@ interface SankeyProps {
  * The sankey graph
  */
 export const Sankey: React.FC<SankeyProps> = ({ data, width, height, displayValues, id, textColor, nodeColor }) => {
-  console.log(displayValues);
-
   const sankey: any = d3Sankey
     .sankey()
     .nodeWidth(20)
@@ -42,8 +41,10 @@ export const Sankey: React.FC<SankeyProps> = ({ data, width, height, displayValu
     // const { links, nodes } = graph.current;
     const { links, nodes } = sankey(data);
 
+    // renderTooltip(data, displayValues);
+
     return (
-      <svg width={width} height={height}>
+      <svg id={'Chart_' + id} width={width} height={height}>
         <g>
           {links.map((d: { width: any }, i: any) => (
             <Link key={i} data={d} width={d.width} length={nodes.length} />
@@ -54,16 +55,10 @@ export const Sankey: React.FC<SankeyProps> = ({ data, width, height, displayValu
             <Node
               data={d}
               key={i}
-              index={d.index}
-              x0={d.x0}
-              x1={d.x1}
-              y0={d.y0}
-              y1={d.y1}
-              name={d.name}
-              values={d.value}
               length={nodes.length}
               textColor={textColor}
               nodeColor={nodeColor}
+              displayValues={displayValues}
             />
           ))}
         </g>
