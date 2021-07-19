@@ -23,6 +23,7 @@ export const Node: React.FC<NodeProps> = ({ data, length, textColor, nodeColor, 
   let y1 = data.y1;
   let index = data.index;
   let name = data.name;
+  let value = data.value;
 
   const width = x1 - x0;
   // const fillColor = '#828282';
@@ -41,6 +42,8 @@ export const Node: React.FC<NodeProps> = ({ data, length, textColor, nodeColor, 
         fill={nodeColor}
         data-index={index}
         id={data.id}
+        d={value}
+        name={name}
       />
       <text
         x={x0 < width / 2 ? x1 + 6 : x0 - 6}

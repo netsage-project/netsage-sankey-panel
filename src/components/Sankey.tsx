@@ -12,44 +12,51 @@ import { Tooltip } from './Tooltip';
 // import '../css/styles.css';
 
 interface SankeyProps {
-  // values: string[];
   data: any;
-  // colorDisplay: (value: number) => string;
   width: number;
   height: number;
-  // numColumns: number;
   displayValues: string;
-  // onHover: (value?: number) => void;
-  // tooltip: boolean;
+  rowDisplayNames: any;
   id: any;
   textColor: string;
   nodeColor: string;
+  field: any;
 }
 
 /**
  * The sankey graph
  */
-export const Sankey: React.FC<SankeyProps> = ({ data, width, height, displayValues, id, textColor, nodeColor }) => {
+export const Sankey: React.FC<SankeyProps> = ({
+  data,
+  width,
+  height,
+  displayValues,
+  rowDisplayNames,
+  id,
+  textColor,
+  nodeColor,
+  field,
+}) => {
   const sankey: any = d3Sankey
     .sankey()
+    .iterations(7)
     .nodeWidth(20)
-    .nodePadding(20)
+    .nodePadding(30)
     .extent([
       [0, 0],
       [width, height],
     ]);
-  Tooltip(data);
 
   // Return an SVG group only if data exists
   if (data) {
-    // graph.current = sankey(pluginData);
-    // const { links, nodes } = graph.current;
+    const nodeData = data.nodes;
+    // const tooltipData = { data: data, displayValues: displayValues, rowNames: rowDisplayNames };
+    // Tooltip(tooltipData);
+    // <Tooltip data={nodeData} displayValues={displayValues} rowNames={rowDisplayNames} />;
     const { links, nodes } = sankey(data);
-
-    // renderTooltip(data, displayValues);
-
     return (
       <svg id={'Chart_' + id} width={width} height={height}>
+        <Tooltip data={nodeData} displayValues={displayValues} rowNames={rowDisplayNames} field={field} />
         <g>
           {links.map((d: { width: any }, i: any) => (
             <Link key={i} data={d} width={d.width} length={nodes.length} />

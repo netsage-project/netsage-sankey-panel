@@ -31,17 +31,21 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
   }
   const displayNames = parsedData[1];
   const pluginData = parsedData[0];
+  const rowDisplayNames = parsedData[2];
+  const field = parsedData[3];
 
   return (
     <g>
       <Sankey
         data={pluginData}
         displayValues={displayNames}
+        rowDisplayNames={rowDisplayNames}
         width={width}
         height={height}
         id={id}
         textColor={graphOptions.textColor}
         nodeColor={graphOptions.nodeColor}
+        field={field}
       />
     </g>
   );
