@@ -20,7 +20,7 @@ export const Link: React.FC<LinkProps> = ({ data, width, length }) => {
         d={link(data)}
         fill={'none'}
         stroke={strokeColor}
-        strokeOpacity={0.5}
+        strokeOpacity={0.7}
         strokeWidth={width}
         id={data.id}
         display={data.displayValue}

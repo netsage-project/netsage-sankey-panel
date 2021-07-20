@@ -1,0 +1,113 @@
+import React, { useEffect, useState } from 'react';
+import * as d3 from 'd3';
+
+interface TooltipProps {
+  data: any;
+  displayValues: any;
+  rowNames: any;
+  field: any;
+}
+
+export const Tooltip: React.FC<TooltipProps> = ({ data, displayValues, rowNames, field }) => {
+  // const nodes = data;
+  // get mouse position for tooltip position
+  const [mousePosition, setMousePosition] = useState({ mouseX: 100, mouseY: 100 });
+
+  const updateMousePosition = (e: any) => {
+    setMousePosition({ mouseX: e.clientX, mouseY: e.clientY });
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousemove', updateMousePosition);
+
+    // Links Tooltip
+    d3.selectAll('path')
+      .on('mouseover', function (event: any, d: any) {
+        let id = d3.select(this).attr('id');
+        let name = rowNames.find((e: any) => e.name === id).display;
+        // let name = rowNames[0].display;
+
+        // paths: selected opacity -> 1, all else -> 0.2
+        d3.selectAll('path').each(function (d) {
+          var thisId = d3.select(this).attr('id');
+          var dark = id === thisId;
+          d3.select(this).attr('opacity', dark ? 1 : 0.4);
+        });
+        var thisId = d3.select(this).attr('id');
+        var div = d3
+          .select('body')
+          .append('div')
+          .attr('class', `tooltip-${thisId}`)
+          .html(() => {
+            var textVal = d3.select(this).attr('display');
+            // var text = `${x}: <b>${y}</b>`;
+            var text = `${name} <br> <b>${textVal}</b>`;
+            return text;
+          })
+          .style('padding', '10px 15px')
+          .style('background', 'black')
+          .style('color', 'white')
+          .style('border', '#A8A8A8 solid 5px')
+          .style('border-radius', '5px')
+          .style('left', mousePosition.mouseX + 'px')
+          .style('top', mousePosition.mouseY + 'px')
+          .style('opacity', 0)
+          .style('position', 'absolute');
+        div.transition().duration(200).style('opacity', 0.9);
+      })
+      .on('mouseout', function (d) {
+        var thisId = d3.select(this).attr('id');
+        d3.selectAll(`.tooltip-${thisId}`).transition().duration(300).remove();
+        // div.transition().duration(100).remove();
+        // div.transition().duration(500).style('opacity', 0);
+        d3.selectAll('path').attr('opacity', 0.9);
+      });
+
+    // for nodes node.layer gives column, node.source links gives array of outgoing links
+    // Nodes Tooltip
+    d3.selectAll('rect')
+      .on('mouseover', function (event: any, d: any) {
+        let id = d3.select(this).attr('id').split(',');
+        d3.selectAll('path').each(function (d) {
+          var thisId = d3.select(this).attr('id');
+          var found = id.find((e) => e === thisId);
+          // var dark = row === thisId;
+          d3.select(this).attr('opacity', found ? 1 : 0.4);
+        });
+
+        var thisNode = d3.select(this).attr('data-index');
+        var div = d3
+          .select('body')
+          .append('div')
+          .attr('class', `tooltip-node${thisNode}`)
+          .html(() => {
+            var textVal = field.display(d3.select(this).attr('d'));
+            var name = d3.select(this).attr('name');
+            var text = `${name}: <b>${textVal.text} ${textVal.suffix}</b>`;
+            return text;
+          })
+          .style('padding', '10px 15px')
+          .style('background', 'black')
+          .style('color', 'white')
+          .style('border', '#A8A8A8 solid 5px')
+          .style('border-radius', '5px')
+          .style('left', mousePosition.mouseX + 'px')
+          .style('top', mousePosition.mouseY + 'px')
+          .style('opacity', 0)
+          .style('position', 'absolute');
+        div.transition().duration(200).style('opacity', 0.9);
+      })
+      .on('mouseout', function (d) {
+        var thisNode = d3.select(this).attr('data-index');
+        d3.selectAll(`.tooltip-node${thisNode}`).transition().duration(300).remove();
+        // div.transition().duration(100).remove();
+        // div.transition().duration(500).style('opacity', 0);
+        d3.selectAll('path').attr('opacity', 0.9);
+      });
+
+    return () => {
+      window.removeEventListener('mousemove', updateMousePosition);
+    };
+  });
+  return null;
+};

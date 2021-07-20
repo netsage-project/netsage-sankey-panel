@@ -49,6 +49,7 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
   const series = data.series[0];
   const frame = new DataFrameView(series);
 
+  // initialize arrays
   let pluginDataLinks: Array<{
     source: number;
     target: number;
@@ -60,6 +61,8 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
   }> = [];
   let pluginDataNodes: Array<{ name: any; id: any; colId: number }> = [];
   let col0: Array<{ name: any; index: number; color: any }> = [];
+  let rowDisplayNames: Array<{ name: any; display: any }> = [];
+
   var rowId = 0; // update after each row
   var currentColor;
 
@@ -84,6 +87,7 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
     // create all the individual links, value is always the last column
     // let rowColor = colorArray[currentLink[0] % colorArray.length];
     let rowColor = col0.find((e) => e.index === currentLink[0])?.color;
+    let rowDisplay = `${pluginDataNodes[currentLink[0]].name}`;
     for (let i = 0; i < currentLink.length - 1; i++) {
       var fieldValues = valueField[0].display(row[numFields]);
       var displayValue = `${fieldValues.text} ${fieldValues.suffix}`;
@@ -96,11 +100,12 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
         color: rowColor,
         node0: currentLink[0],
       });
+      rowDisplay = rowDisplay.concat(` -> ${pluginDataNodes[currentLink[i + 1]].name}`);
     }
+    rowDisplayNames.push({ name: `row${rowId}`, display: rowDisplay });
     rowId++;
   });
   const pluginData = { links: pluginDataLinks, nodes: pluginDataNodes };
-  console.log(pluginData);
 
-  return [pluginData, displayNames];
+  return [pluginData, displayNames, rowDisplayNames, valueField[0]];
 }
