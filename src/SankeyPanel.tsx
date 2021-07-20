@@ -11,8 +11,8 @@ interface Props extends PanelProps<SankeyOptions> {}
 /**
  * Grafana Sankey diagram panel
  *
- * @param {*} { options, data, width, height }
- * @return {*} { React.FC<Props> }
+ * @param {*} { options, data, width, height, id }
+ * @return {*} { Sankey } the Sankey graph
  */
 export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id }: any): any => {
   let graphOptions = {
@@ -38,7 +38,7 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
     <g>
       <Sankey
         data={pluginData}
-        displayValues={displayNames}
+        displayNames={displayNames}
         rowDisplayNames={rowDisplayNames}
         width={width}
         height={height}

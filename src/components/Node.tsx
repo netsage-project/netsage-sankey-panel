@@ -1,22 +1,20 @@
 import React from 'react';
-// import * as d3 from 'd3';
-// import * as d3Sankey from 'd3-sankey';
 
 interface NodeProps {
   data: any;
-  length: number;
   textColor: string;
   nodeColor: string;
-  displayValues: any;
 }
 
 /**
- * Create Sankey rectangular nodes with text
+ * Create Sankey rectangular nodes with labels
  *
- * @param {*} { index, x0, x1, y0, y1, name, length, colors }
- * @return {*}  {*}
+ * @param data is the node data produced by calling the d3-sankey function
+ * @param textColor is set in the editor panel, the color of the node label text
+ * @param nodeColor is set in the editor panel, the fill color of the nodes
+ * @return {*}  the node and its label
  */
-export const Node: React.FC<NodeProps> = ({ data, length, textColor, nodeColor, displayValues }) => {
+export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor }) => {
   let x0 = data.x0;
   let x1 = data.x1;
   let y0 = data.y0;
@@ -26,7 +24,6 @@ export const Node: React.FC<NodeProps> = ({ data, length, textColor, nodeColor, 
   let value = data.value;
 
   const width = x1 - x0;
-  // const fillColor = '#828282';
   const strokeColor = 'black';
 
   return (

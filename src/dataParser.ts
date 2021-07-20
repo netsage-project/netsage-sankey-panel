@@ -1,5 +1,16 @@
 import { DataFrameView, Field, getFieldDisplayName, Vector } from '@grafana/data';
-
+/**
+ * Takes data from Grafana query and returns it in the format needed for this panel
+ *
+ * @param data the data returned by the query
+ * @param options the field options from the editor panel
+ * @param monochrome the boolean in the editor panel that sets whether the sankey is single or multi colored
+ * @param color the color chosen in the editor panel for the sankey links if monochrome bool is true
+ * @return {pluginData} the node and link data for the d3-sankey
+ * @return {displayNames} the display names for the headers
+ * @return {rowDisplayNames}
+ * @return {valueField[0]}
+ */
 export function parseData(data: { series: any[] }, options: { valueFieldName: any }, monochrome: boolean, color: any) {
   const { valueFieldName } = options;
 
