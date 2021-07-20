@@ -1,13 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
-  "name": "NetSage Sankey v3",
+  "name": "Sankey Panel",
   "id": "netsage-sankey-panel",
   "info": {
-    "description": "NetSage Sankey Plugin for Grafana 7 and newer",
+    "description": "Sankey Panel Plugin for Grafana",
     "author": {
       "name": "NetSage",
-      "url": "http://www.netsage.global"
+      "url": "http://github.com/netsage-project"
     },
     "keywords": ["netsage", "sankey"],
     "logos": {
@@ -17,7 +17,7 @@
     "links": [
       {
         "name": "Website",
-        "url": "https://github.com/grafana/grafana-starter-panel"
+        "url": "https://github.com/netsage-project/netsage-sankey-panel"
       },
       {
         "name": "License",
@@ -29,7 +29,7 @@
     "updated": "%TODAY%"
   },
   "dependencies": {
-    "grafanaDependency": ">=7.0.0",
+    "grafanaDependency": ">=7.0.3",
     "plugins": []
   }
 }
