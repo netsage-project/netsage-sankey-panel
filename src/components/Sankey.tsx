@@ -39,8 +39,8 @@ export const Sankey: React.FC<SankeyProps> = ({
   const sankey: any = d3Sankey
     .sankey()
     .iterations(7)
-    .nodeWidth(25)
-    .nodePadding(25)
+    .nodeWidth(30)
+    .nodePadding(30)
     .extent([
       [0, 0],
       [graphWidth, graphHeight],
