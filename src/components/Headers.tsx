@@ -38,7 +38,7 @@ export const Headers: React.FC<HeaderProps> = ({ displayNames, width, id, topMar
     head
       .append('text')
       .attr('class', 'header-text')
-      .attr('transform', 'translate(' + width + ',' + translateY + ')') // above right axis
+      .attr('transform', 'translate(' + (width + MARGIN.left) + ',' + translateY + ')') // above right axis
       .attr('font-size', '14pt')
       .attr('font-weight', '500')
       .attr('text-anchor', 'end')
@@ -48,7 +48,7 @@ export const Headers: React.FC<HeaderProps> = ({ displayNames, width, id, topMar
     if (displayNames.length > 3) {
       const colWidth = width / (displayNames.length - 2);
       for (let i = 1; i < displayNames.length - 2; i++) {
-        let translateX = colWidth * i;
+        let translateX = colWidth * i + MARGIN.left;
         head
           .append('text')
           .attr('class', 'header-text')

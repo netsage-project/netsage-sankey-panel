@@ -33,14 +33,14 @@ export const Sankey: React.FC<SankeyProps> = ({
   nodeColor,
   field,
 }) => {
-  const MARGIN = { top: 100, bottom: 50, right: 20, left: 20 };
+  const MARGIN = { top: 75, bottom: 50, right: 20, left: 20 };
   const graphWidth = width - MARGIN.left - MARGIN.right;
   const graphHeight = height - MARGIN.top - MARGIN.bottom;
   const sankey: any = d3Sankey
     .sankey()
     .iterations(7)
-    .nodeWidth(20)
-    .nodePadding(20)
+    .nodeWidth(25)
+    .nodePadding(25)
     .extent([
       [0, 0],
       [graphWidth, graphHeight],

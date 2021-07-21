@@ -48,12 +48,12 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field }) => {
           .style('top', mousePosition.mouseY + 'px')
           .style('opacity', 0)
           .style('position', 'absolute');
-        div.transition().duration(200).style('opacity', 0.9);
+        div.transition().duration(200).style('opacity', 0.8);
       })
       .on('mouseout', function (d) {
         var thisId = d3.select(this).attr('id');
         d3.selectAll(`.tooltip-${thisId}`).transition().duration(300).remove();
-        d3.selectAll('path').attr('opacity', 0.9);
+        d3.selectAll('path').attr('opacity', 0.7);
       });
 
     // Nodes Tooltip
@@ -86,12 +86,12 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field }) => {
           .style('top', mousePosition.mouseY + 'px')
           .style('opacity', 0)
           .style('position', 'absolute');
-        div.transition().duration(200).style('opacity', 0.9);
+        div.transition().duration(200).style('opacity', 0.8);
       })
       .on('mouseout', function (d) {
         var thisNode = d3.select(this).attr('data-index');
         d3.selectAll(`.tooltip-node${thisNode}`).transition().duration(300).remove();
-        d3.selectAll('path').attr('opacity', 0.9);
+        d3.selectAll('path').attr('opacity', 0.7);
       });
 
     return () => {
