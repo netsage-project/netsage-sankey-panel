@@ -6,9 +6,10 @@ interface HeaderProps {
   width: any;
   id: any;
   topMargin: number;
+  textColor: string;
 }
 
-export const Headers: React.FC<HeaderProps> = ({ displayNames, width, id, topMargin }) => {
+export const Headers: React.FC<HeaderProps> = ({ displayNames, width, id, topMargin, textColor }) => {
   useEffect(() => {
     //clear old headers
     d3.select('#' + id)
@@ -19,20 +20,20 @@ export const Headers: React.FC<HeaderProps> = ({ displayNames, width, id, topMar
       .select('#' + id)
       .append('g')
       .attr('id', `${id} header`);
-    var margin = { top: topMargin, right: 20, bottom: 50, left: 20 };
+    var MARGIN = { top: topMargin, right: 20, bottom: 50, left: 20 };
 
-    var translateY = margin.top / 2;
+    var translateY = MARGIN.top / 2;
 
     // Add left and right axis labels
     head
       .append('text')
       .attr('class', 'header-text')
-      .attr('transform', 'translate(' + margin.left + ',' + translateY + ')') // above left axis
+      .attr('transform', 'translate(' + MARGIN.left + ',' + translateY + ')') // above left axis
       .attr('font-size', '14pt')
       .attr('font-weight', '500')
       .attr('text-anchor', 'start')
-      .text(displayNames[0]);
-    // .attr('fill', headerColor);
+      .text(displayNames[0])
+      .attr('fill', textColor);
 
     head
       .append('text')
@@ -41,8 +42,8 @@ export const Headers: React.FC<HeaderProps> = ({ displayNames, width, id, topMar
       .attr('font-size', '14pt')
       .attr('font-weight', '500')
       .attr('text-anchor', 'end')
-      .text(displayNames[displayNames.length - 2]); // last one is value label
-    // .attr('fill', headerColor);
+      .text(displayNames[displayNames.length - 2]) // last one is value label
+      .attr('fill', textColor);
 
     if (displayNames.length > 3) {
       const colWidth = width / (displayNames.length - 2);
@@ -55,7 +56,8 @@ export const Headers: React.FC<HeaderProps> = ({ displayNames, width, id, topMar
           .attr('font-size', '14pt')
           .attr('font-weight', '500')
           .attr('text-anchor', 'middle')
-          .text(displayNames[i]);
+          .text(displayNames[i])
+          .attr('fill', textColor);
       }
     }
   });

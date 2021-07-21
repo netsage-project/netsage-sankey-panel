@@ -33,9 +33,9 @@ export const Sankey: React.FC<SankeyProps> = ({
   nodeColor,
   field,
 }) => {
-  const margin = { top: 100, bottom: 50, right: 20, left: 20 };
-  const graphWidth = width - margin.left - margin.right;
-  const graphHeight = height - margin.top - margin.bottom;
+  const MARGIN = { top: 100, bottom: 50, right: 20, left: 20 };
+  const graphWidth = width - MARGIN.left - MARGIN.right;
+  const graphHeight = height - MARGIN.top - MARGIN.bottom;
   const sankey: any = d3Sankey
     .sankey()
     .iterations(7)
@@ -52,14 +52,20 @@ export const Sankey: React.FC<SankeyProps> = ({
 
     return (
       <svg id={'Chart_' + id} width={width} height={height}>
-        <Headers displayNames={displayNames} width={graphWidth} id={'Chart_' + id} topMargin={margin.top} />
+        <Headers
+          displayNames={displayNames}
+          width={graphWidth}
+          id={'Chart_' + id}
+          topMargin={MARGIN.top}
+          textColor={textColor}
+        />
         <Tooltip rowNames={rowDisplayNames} field={field} />
-        <g transform={`translate(${margin.left}, ${margin.top})`}>
+        <g transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
           {links.map((d: { width: any }, i: any) => (
             <Link key={i} data={d} />
           ))}
         </g>
-        <g transform={`translate(${margin.left}, ${margin.top})`}>
+        <g transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
           {nodes.map((d: { index: any; x0: any; x1: any; y0: any; y1: any; name: any; value: any }, i: any) => (
             <Node data={d} key={i} textColor={textColor} nodeColor={nodeColor} />
           ))}
