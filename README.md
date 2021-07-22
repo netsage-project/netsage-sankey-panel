@@ -1,7 +1,7 @@
 # NetSage Sankey Grafana Plugin
 
-[![Build](https://github.com/netsage/netsage-sankey-panel/workflows/CI/badge.svg)](https://github.com/netsage/netsage-sankey-panel/actions?query=workflow%3A%22CI%22)
-[![Release](https://github.com/netsage/netsage-sankey-panel/workflows/Release/badge.svg)](https://github.com/netsage/netsage-sankey-panel/actions?query=workflow%3ARelease)
+[![CI](https://github.com/netsage-project/netsage-sankey-panel/actions/workflows/ci.yml/badge.svg)](https://github.com/netsage-project/netsage-sankey-panel/actions/workflows/ci.yml)
+[![Release](https://github.com/netsage-project/netsage-sankey-panel/actions/workflows/release.yml/badge.svg)](https://github.com/netsage-project/netsage-sankey-panel/actions/workflows/release.yml)
 
 This is a panel plugin for generating Sankey diagrams in Grafana 7.0+.  Sankey diagrams are good for visualizing flow data and the width of the flows will be proportionate to the selected metric.
 
