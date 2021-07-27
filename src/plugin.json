@@ -24,8 +24,8 @@
         "url": "https://github.com/grafana/grafana-starter-panel/blob/master/LICENSE"
       }
     ],
-    "screenshots": [],
-    "version": "%VERSION%",
+    "screenshots": [{"name":"sankey2", "path":"img/sankey2.png"}, {"name":"sankey3", "path":"img/sankey3.png"}],
+    "version": "1.0.0",
     "updated": "%TODAY%"
   },
   "dependencies": {
