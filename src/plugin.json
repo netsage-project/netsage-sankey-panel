@@ -25,7 +25,7 @@
       }
     ],
     "screenshots": [{"name":"sankey2", "path":"img/sankey2.png"}, {"name":"sankey3", "path":"img/sankey3.png"}],
-    "version": "1.0.0",
+    "version": "%VERSION%",
     "updated": "%TODAY%"
   },
   "dependencies": {
