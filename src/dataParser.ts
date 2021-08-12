@@ -21,7 +21,85 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
    */
   const colorArray: string[] = [];
   if (monochrome) {
-    colorArray.push(color);
+    switch (color) {
+      case 'dark-green':
+        colorArray.push('#1A7311');
+        break;
+      case 'semi-dark-green':
+        colorArray.push('#36872D');
+        break;
+      case 'light-green':
+        colorArray.push('#73BF68');
+        break;
+      case 'super-light-green':
+        colorArray.push('#96D88C');
+        break;
+      case 'dark-yellow':
+        colorArray.push('rgb(207, 159, 0)');
+        break;
+      case 'semi-dark-yellow':
+        colorArray.push('rgb(224, 180, 0)');
+        break;
+      case 'light-yellow':
+        colorArray.push('rgb(250, 222, 42)');
+        break;
+      case 'super-light-yellow':
+        colorArray.push('rgb(255, 238, 82)');
+        break;
+      case 'dark-red':
+        colorArray.push('rgb(173, 3, 23)');
+        break;
+      case 'semi-dark-red':
+        colorArray.push('rgb(196, 22, 42)');
+        break;
+      case 'light-red':
+        colorArray.push('rgb(242, 73, 92)');
+        break;
+      case 'super-light-red':
+        colorArray.push('rgb(255, 115, 131)');
+        break;
+      case 'dark-blue':
+        colorArray.push('rgb(18, 80, 176)');
+        break;
+      case 'semi-dark-blue':
+        colorArray.push('rgb(31, 96, 196)');
+        break;
+      case 'light-blue':
+        colorArray.push('rgb(87, 148, 242)');
+        break;
+      case 'super-light-blue':
+        colorArray.push('rgb(138, 184, 255)');
+        break;
+      case 'dark-orange':
+        colorArray.push('rgb(229, 84, 0)');
+        break;
+      case 'semi-dark-orange':
+        colorArray.push('rgb(250, 100, 0)');
+        break;
+      case 'light-orange':
+        colorArray.push('rgb(255, 152, 48)');
+        break;
+      case 'super-light-orange':
+        colorArray.push('rgb(255, 179, 87)');
+        break;
+      case 'dark-purple':
+        colorArray.push('rgb(124, 46, 163)');
+        break;
+      case 'semi-dark-purple':
+        colorArray.push('rgb(143, 59, 184)');
+        break;
+      case 'light-purple':
+        colorArray.push('rgb(184, 119, 217)');
+        break;
+      case 'super-light-purple':
+        colorArray.push('rgb(202, 149, 229)');
+        break;
+      default:
+        colorArray.push(color);
+        break;
+    }
+
+    // colorArray.push(color);
   } else {
     colorArray.push('#018EDB');
     colorArray.push('#DB8500');

@@ -21,12 +21,12 @@
       },
       {
         "name": "License",
-        "url": "https://github.com/grafana/grafana-starter-panel/blob/master/LICENSE"
+        "url": "https://github.com/netsage-project/netsage-sankey-panel/blob/master/LICENSE"
       }
     ],
     "screenshots": [{"name":"sankey2", "path":"img/sankey2.png"}, {"name":"sankey3", "path":"img/sankey3.png"}],
     "version": "1.0.0",
-    "updated": "2021-07-27"
+    "updated": "2021-08-12"
   },
   "dependencies": {
     "grafanaDependency": ">=7.0.3",
