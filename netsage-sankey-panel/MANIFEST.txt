@@ -1,0 +1,35 @@
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+{
+  "manifestVersion": "2.0.0",
+  "signatureType": "community",
+  "signedByOrg": "netsage",
+  "signedByOrgName": "netsage",
+  "plugin": "netsage-sankey-panel",
+  "version": "1.0.0",
+  "time": 1628797991579,
+  "keyId": "7e4d0c6a708866e7",
+  "files": {
+    "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "CHANGELOG.md": "aaa78be4710ef41d56ddab1edbd180ef9f9adfea2f293109aae925dc33a1b9b3",
+    "module.js.map": "f74ba6c1b7ee23eeabb740948c9abcc622cc98f4af30d7435970522f7aacd6c9",
+    "plugin.json": "ec87a0b3372593da0a2fc02acad096d321906301857e4b5cbb79d6db20c681b0",
+    "README.md": "f54c6fd8e38c41c937ca78337a0b1117b807fbf366a261d5923063d10eee004a",
+    "img/sankey2.png": "99651eceae6c3e99f6b0317f4eec4f7827d3d4c242b4f3a29d166a17f0e71cf8",
+    "img/sankey3.png": "9ec6c9fd8df713ce384b96e13f300f123672b293034a448c99ac1f739c54e117",
+    "img/logo.svg": "e1b79c50e08be2be3382fa42850209dc3a7496d56e60a45c4d8a1375a685e633",
+    "module.js": "5f51ed2db5ea9c52acde1249ba46dc236aeeaa1ce2910afea1ef8cab043acb19"
+  }
+}
+-----BEGIN PGP SIGNATURE-----
+Version: OpenPGP.js v4.10.1
+Comment: https://openpgpjs.org
+
+wqIEARMKAAYFAmEVfCcACgkQfk0ManCIZucH0wIJAasic5nHMgFY84p33NAi
+r20JmDgM4vNQ4rQQy7jCmLNb8ZS0qJdp8NJNY71l+BHfscdEvDFaFjv1s2Hq
+qf1ops0kAgkB0UKT6/nZeN4CgAi1Cx23/EKzlFnkIgVznf5Kp1RhnEuUqD4d
++RzLYEKbQuqVy4Sg4Z8JO7Zqbq8988icsXW3Zcs=
+=cBlN
+-----END PGP SIGNATURE-----
