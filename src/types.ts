@@ -3,8 +3,6 @@ export interface SankeyOptions {
   color: string;
   textColor: string;
   nodeColor: string;
-  nodeWidth: number;
-  nodePadding: number;
 }
 
 export interface SankeyFieldConfig {}

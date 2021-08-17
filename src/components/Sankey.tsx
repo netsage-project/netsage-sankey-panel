@@ -17,8 +17,6 @@ interface SankeyProps {
   textColor: string;
   nodeColor: string;
   field: any;
-  nodeWidth: number;
-  nodePadding: number;
 }
 
 /**
@@ -34,8 +32,6 @@ export const Sankey: React.FC<SankeyProps> = ({
   textColor,
   nodeColor,
   field,
-  nodeWidth,
-  nodePadding,
 }) => {
   const MARGIN = { top: 75, bottom: 50, right: 20, left: 20 };
   const graphWidth = width - MARGIN.left - MARGIN.right;
@@ -43,8 +39,8 @@ export const Sankey: React.FC<SankeyProps> = ({
   const sankey: any = d3Sankey
     .sankey()
     .iterations(7)
-    .nodeWidth(nodeWidth)
-    .nodePadding(nodePadding)
+    .nodeWidth(30)
+    .nodePadding(30)
     .extent([
       [0, 0],
       [graphWidth, graphHeight],

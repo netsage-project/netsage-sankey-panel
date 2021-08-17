@@ -46,8 +46,6 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
         textColor={graphOptions.textColor}
         nodeColor={graphOptions.nodeColor}
         field={field}
-        nodeWidth={graphOptions.nodeWidth}
-        nodePadding={graphOptions.nodePadding}
       />
     </g>
   );
