@@ -33,6 +33,9 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
   const pluginData = parsedData[0];
   const rowDisplayNames = parsedData[2];
   const field = parsedData[3];
+  const fixColor = parsedData[4];
+  const textColor = fixColor(graphOptions.textColor);
+  const nodeColor = fixColor(graphOptions.nodeColor);
 
   return (
     <g>
@@ -43,11 +46,12 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
         width={width}
         height={height}
         id={id}
-        textColor={graphOptions.textColor}
-        nodeColor={graphOptions.nodeColor}
+        textColor={textColor}
+        nodeColor={nodeColor}
         field={field}
         nodeWidth={graphOptions.nodeWidth}
         nodePadding={graphOptions.nodePadding}
+        iteration={graphOptions.iteration}
       />
     </g>
   );

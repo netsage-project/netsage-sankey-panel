@@ -5,6 +5,7 @@ export interface SankeyOptions {
   nodeColor: string;
   nodeWidth: number;
   nodePadding: number;
+  iteration: number;
 }
 
 export interface SankeyFieldConfig {}

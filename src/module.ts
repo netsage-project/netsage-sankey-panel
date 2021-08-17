@@ -66,6 +66,16 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
           max: 100,
           step: 1,
         },
+      })
+      .addSliderInput({
+        path: 'iteration',
+        name: 'Layout iterations',
+        defaultValue: 7,
+        settings: {
+          min: 1,
+          max: 30,
+          step: 1,
+        },
       });
   })
   .useFieldConfig({
