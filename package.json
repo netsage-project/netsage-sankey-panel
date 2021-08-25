@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@grafana/data": "latest",
-    "@grafana/toolkit": "latest",
+    "@grafana/toolkit": "8.0.6",
     "@grafana/ui": "latest",
     "@types/d3": "latest",
     "@types/d3-sankey": "latest",
