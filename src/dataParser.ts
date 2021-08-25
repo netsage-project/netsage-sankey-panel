@@ -1,4 +1,5 @@
 import { DataFrameView, Field, getFieldDisplayName, Vector } from '@grafana/data';
+// import { color } from 'd3';
 /**
  * Takes data from Grafana query and returns it in the format needed for this panel
  *
@@ -19,86 +20,91 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
    * if monochrome = true, set all colors to value: color
    * else, set to multi color
    */
-  const colorArray: string[] = [];
-  if (monochrome) {
+
+  function fixColor(color: string) {
     switch (color) {
       case 'dark-green':
-        colorArray.push('#1A7311');
+        color = '#1A7311';
         break;
       case 'semi-dark-green':
-        colorArray.push('#36872D');
+        color = '#36872D';
         break;
       case 'light-green':
-        colorArray.push('#73BF68');
+        color = '#73BF68';
         break;
       case 'super-light-green':
-        colorArray.push('#96D88C');
+        color = '#96D88C';
         break;
       case 'dark-yellow':
-        colorArray.push('rgb(207, 159, 0)');
+        color = 'rgb(207, 159, 0)';
         break;
       case 'semi-dark-yellow':
-        colorArray.push('rgb(224, 180, 0)');
+        color = 'rgb(224, 180, 0)';
         break;
       case 'light-yellow':
-        colorArray.push('rgb(250, 222, 42)');
+        color = 'rgb(250, 222, 42)';
         break;
       case 'super-light-yellow':
-        colorArray.push('rgb(255, 238, 82)');
+        color = 'rgb(255, 238, 82)';
         break;
       case 'dark-red':
-        colorArray.push('rgb(173, 3, 23)');
+        color = 'rgb(173, 3, 23)';
         break;
       case 'semi-dark-red':
-        colorArray.push('rgb(196, 22, 42)');
+        color = 'rgb(196, 22, 42)';
         break;
       case 'light-red':
-        colorArray.push('rgb(242, 73, 92)');
+        color = 'rgb(242, 73, 92)';
         break;
       case 'super-light-red':
-        colorArray.push('rgb(255, 115, 131)');
+        color = 'rgb(255, 115, 131)';
         break;
       case 'dark-blue':
-        colorArray.push('rgb(18, 80, 176)');
+        color = 'rgb(18, 80, 176)';
         break;
       case 'semi-dark-blue':
-        colorArray.push('rgb(31, 96, 196)');
+        color = 'rgb(31, 96, 196)';
         break;
       case 'light-blue':
-        colorArray.push('rgb(87, 148, 242)');
+        color = 'rgb(87, 148, 242)';
         break;
       case 'super-light-blue':
-        colorArray.push('rgb(138, 184, 255)');
+        color = 'rgb(138, 184, 255)';
         break;
       case 'dark-orange':
-        colorArray.push('rgb(229, 84, 0)');
+        color = 'rgb(229, 84, 0)';
         break;
       case 'semi-dark-orange':
-        colorArray.push('rgb(250, 100, 0)');
+        color = 'rgb(250, 100, 0)';
         break;
       case 'light-orange':
-        colorArray.push('rgb(255, 152, 48)');
+        color = 'rgb(255, 152, 48)';
         break;
       case 'super-light-orange':
-        colorArray.push('rgb(255, 179, 87)');
+        color = 'rgb(255, 179, 87)';
         break;
       case 'dark-purple':
-        colorArray.push('rgb(124, 46, 163)');
+        color = 'rgb(124, 46, 163)';
         break;
       case 'semi-dark-purple':
-        colorArray.push('rgb(143, 59, 184)');
+        color = 'rgb(143, 59, 184)';
         break;
       case 'light-purple':
-        colorArray.push('rgb(184, 119, 217)');
+        color = 'rgb(184, 119, 217)';
         break;
       case 'super-light-purple':
-        colorArray.push('rgb(202, 149, 229)');
+        color = 'rgb(202, 149, 229)';
         break;
       default:
-        colorArray.push(color);
         break;
     }
+    return color;
+  }
 
+  const colorArray: string[] = [];
+
+  if (monochrome) {
+    colorArray.push(fixColor(color));
     // colorArray.push(color);
   } else {
     colorArray.push('#018EDB');
@@ -196,5 +202,5 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
   });
   const pluginData = { links: pluginDataLinks, nodes: pluginDataNodes };
 
-  return [pluginData, displayNames, rowDisplayNames, valueField[0]];
+  return [pluginData, displayNames, rowDisplayNames, valueField[0], fixColor];
 }

@@ -46,6 +46,36 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
         path: 'nodeColor',
         name: 'Node color',
         defaultValue: 'grey',
+      })
+      .addSliderInput({
+        path: 'nodeWidth',
+        name: 'Node width',
+        defaultValue: 30,
+        settings: {
+          min: 5,
+          max: 100,
+          step: 1,
+        },
+      })
+      .addSliderInput({
+        path: 'nodePadding',
+        name: 'Node padding',
+        defaultValue: 30,
+        settings: {
+          min: 1,
+          max: 100,
+          step: 1,
+        },
+      })
+      .addSliderInput({
+        path: 'iteration',
+        name: 'Layout iterations',
+        defaultValue: 7,
+        settings: {
+          min: 1,
+          max: 30,
+          step: 1,
+        },
       });
   })
   .useFieldConfig({
