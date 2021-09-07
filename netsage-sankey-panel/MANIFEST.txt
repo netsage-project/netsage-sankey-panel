@@ -8,28 +8,28 @@ Hash: SHA512
   "signedByOrg": "netsage",
   "signedByOrgName": "netsage",
   "plugin": "netsage-sankey-panel",
-  "version": "1.0.2",
-  "time": 1629922642244,
+  "version": "1.0.3",
+  "time": 1631041365036,
   "keyId": "7e4d0c6a708866e7",
   "files": {
     "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
     "CHANGELOG.md": "aaa78be4710ef41d56ddab1edbd180ef9f9adfea2f293109aae925dc33a1b9b3",
-    "module.js.map": "0f03b5fde72dc92b02e758f2de159d3df0f42a060c2ce5159ff26055e15c6c06",
-    "plugin.json": "cc85f0c517170e9f3797c5e793d684280a025b2ec12c32fb85076c2432d006f7",
+    "module.js.map": "cf4245bbc6c423eecc8e462701ddfe51f195a78793c8db4eed4f12105d93e071",
+    "plugin.json": "483d0da8b455f8abaa1cefe1882e91bded58d52e4caccacb440831bf6f146844",
     "README.md": "c5b30b84e983ea9e852bf89379c95532760406bbfadd0174e1fcaac4fc87081d",
     "img/sankey2.png": "99651eceae6c3e99f6b0317f4eec4f7827d3d4c242b4f3a29d166a17f0e71cf8",
     "img/sankey3.png": "9ec6c9fd8df713ce384b96e13f300f123672b293034a448c99ac1f739c54e117",
     "img/logo.svg": "e1b79c50e08be2be3382fa42850209dc3a7496d56e60a45c4d8a1375a685e633",
-    "module.js": "9771bbc169b2091bddc514f3787da0ff02b1270495b45804d21e11702860866a"
+    "module.js": "3951f47b8407b056356a3bd1597a6b0e8d8c5327d8fa1b7353c61083e3ce7ac1"
   }
 }
 -----BEGIN PGP SIGNATURE-----
 Version: OpenPGP.js v4.10.1
 Comment: https://openpgpjs.org
 
-wqEEARMKAAYFAmEmpVIACgkQfk0ManCIZucJZgIEC1OhDybg60cEVNZ+f4zW
-OBrnQf0sEystqgaFlOeWYevkufimp7enu8SpUptYBSl3Qf7C48dj3kFbB0l/
-Z/CT3PkCCQHST76Irxochu2J8GU3WqP2VRovJ0CucNT3ECAAJPhyRekPzyXH
-EBOgBEhv6kSO0UOJQprNGjrfFJPgRJ64wpFU8w==
-=hpk2
+wqEEARMKAAYFAmE3t1UACgkQfk0ManCIZufzqQIJAXziF+gYS21hf6x1DpIg
++xixqM3hqr3sW2xQrezUSbBpukMdcapMOXanKcv61zotUzwVBVyidhHbArv+
+RzHFIIzpAgYyzb9wYaOUS9KNlX6uHZJsJBAYZUvTmC+swvvhmxHW7Zs1ffHa
+tjIBZrwFtBUZbheHnEhQCtGab0leVi26FStbvQ==
+=S4wt
 -----END PGP SIGNATURE-----

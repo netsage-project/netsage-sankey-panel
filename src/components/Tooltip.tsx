@@ -21,7 +21,8 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field }) => {
     d3.selectAll('path')
       .on('mouseover', function (event: any, d: any) {
         let id = d3.select(this).attr('id');
-        let name = rowNames.find((e: any) => e.name === id).display;
+        let row = id.split('-');
+        let name = rowNames.find((e: any) => e.name === row[1]).display;
 
         // paths: selected opacity -> 1, all else -> 0.2
         d3.selectAll('path').each(function (d) {
@@ -60,9 +61,14 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field }) => {
     d3.selectAll('rect')
       .on('mouseover', function (event: any, d: any) {
         let id = d3.select(this).attr('id').split(',');
+        let panelId = id[0];
+        let rowList: string[] = [];
+        id.forEach((e) => {
+          rowList.push(`${panelId}-${e}`);
+        });
         d3.selectAll('path').each(function (d) {
           var thisId = d3.select(this).attr('id');
-          var found = id.find((e) => e === thisId);
+          var found = rowList.find((e) => e === thisId);
           d3.select(this).attr('opacity', found ? 1 : 0.2);
         });
 
