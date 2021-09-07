@@ -68,12 +68,12 @@ export const Sankey: React.FC<SankeyProps> = ({
         <Tooltip rowNames={rowDisplayNames} field={field} />
         <g transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
           {links.map((d: { width: any }, i: any) => (
-            <Link key={i} data={d} />
+            <Link key={i} data={d} panelId={id} />
           ))}
         </g>
         <g transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
           {nodes.map((d: { index: any; x0: any; x1: any; y0: any; y1: any; name: any; value: any }, i: any) => (
-            <Node data={d} key={i} textColor={textColor} nodeColor={nodeColor} />
+            <Node data={d} key={i} textColor={textColor} nodeColor={nodeColor} panelId={id} />
           ))}
         </g>
       </svg>

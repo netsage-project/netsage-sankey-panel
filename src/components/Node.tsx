@@ -4,6 +4,7 @@ interface NodeProps {
   data: any;
   textColor: string;
   nodeColor: string;
+  panelId: any;
 }
 
 /**
@@ -14,7 +15,7 @@ interface NodeProps {
  * @param nodeColor is set in the editor panel, the fill color of the nodes
  * @return {*}  the node and its label
  */
-export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor }) => {
+export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor, panelId }) => {
   let x0 = data.x0;
   let x1 = data.x1;
   let y0 = data.y0;
@@ -38,7 +39,7 @@ export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor }) => {
         stroke={strokeColor}
         fill={nodeColor}
         data-index={index}
-        id={data.id}
+        id={panelId + ',' + data.id}
         d={value}
         name={name}
       />
