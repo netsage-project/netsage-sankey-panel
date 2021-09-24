@@ -26,7 +26,7 @@
     ],
     "screenshots": [{"name":"sankey2", "path":"img/sankey2.png"}, {"name":"sankey3", "path":"img/sankey3.png"}],
     "version": "1.0.3",
-    "updated": "2021-09-07"
+    "updated": "2021-09-24"
   },
   "dependencies": {
     "grafanaDependency": ">=7.0.3",
