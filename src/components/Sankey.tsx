@@ -4,6 +4,9 @@ import { Node } from './Node';
 import * as d3Sankey from 'd3-sankey';
 import { Tooltip } from './Tooltip';
 import { Headers } from './Headers';
+// import { GrafanaTheme2 } from '@grafana/data';
+// import { useTheme2 } from '@grafana/ui';
+// import { css } from '@emotion/css';
 
 // import '../css/styles.css';
 
@@ -39,6 +42,8 @@ export const Sankey: React.FC<SankeyProps> = ({
   nodePadding,
   iteration,
 }) => {
+  // const theme = useTheme2();
+
   const MARGIN = { top: 75, bottom: 50, right: 20, left: 20 };
   const graphWidth = width - MARGIN.left - MARGIN.right;
   const graphHeight = height - MARGIN.top - MARGIN.bottom;

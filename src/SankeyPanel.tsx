@@ -1,11 +1,9 @@
 import React from 'react';
-// import React, { useRef } from 'react';
 import { PanelProps } from '@grafana/data';
 import { SankeyOptions } from 'types';
 import { parseData } from 'dataParser';
 import { Sankey } from './components/Sankey';
-// import * as d3 from 'd3';
-// import * as d3Sankey from 'd3-sankey';
+import { useTheme2 } from '@grafana/ui';
 
 interface Props extends PanelProps<SankeyOptions> {}
 /**
@@ -18,6 +16,7 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
   let graphOptions = {
     ...options,
   };
+  const theme = useTheme2();
   /**
    * Feed data and options into data parser.
    * @param {*} { data, options }
@@ -34,7 +33,8 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
   const rowDisplayNames = parsedData[2];
   const field = parsedData[3];
   const fixColor = parsedData[4];
-  const textColor = fixColor(graphOptions.textColor);
+  // const textColor = fixColor(graphOptions.textColor);
+  const textColor = theme.colors.text.primary;
   const nodeColor = fixColor(graphOptions.nodeColor);
 
   return (

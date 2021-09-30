@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme2 } from '@grafana/ui';
 
 interface NodeProps {
   data: any;
@@ -16,6 +17,8 @@ interface NodeProps {
  * @return {*}  the node and its label
  */
 export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor, panelId }) => {
+  const theme = useTheme2();
+
   let x0 = data.x0;
   let x1 = data.x1;
   let y0 = data.y0;
@@ -26,6 +29,7 @@ export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor, panelId 
 
   const width = x1 - x0;
   const strokeColor = 'black';
+  const fontSize = theme.typography.fontSize;
 
   return (
     <>
@@ -49,7 +53,7 @@ export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor, panelId 
         style={{
           fill: textColor,
           alignmentBaseline: 'middle',
-          fontSize: 16,
+          fontSize: fontSize,
           textAnchor: x0 < width / 2 ? 'start' : 'end',
           pointerEvents: 'none',
           userSelect: 'none',

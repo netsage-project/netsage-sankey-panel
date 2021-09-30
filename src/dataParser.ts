@@ -185,7 +185,13 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
     let rowDisplay = `${pluginDataNodes[currentLink[0]].name}`;
     for (let i = 0; i < currentLink.length - 1; i++) {
       var fieldValues = valueField[0].display(row[numFields]);
-      var displayValue = `${fieldValues.text} ${fieldValues.suffix}`;
+      var displayValue;
+      if (fieldValues.suffix) {
+        displayValue = `${fieldValues.text} ${fieldValues.suffix}`;
+      } else {
+        displayValue = `${fieldValues.text}`;
+      }
+
       pluginDataLinks.push({
         source: currentLink[i],
         target: currentLink[i + 1],
