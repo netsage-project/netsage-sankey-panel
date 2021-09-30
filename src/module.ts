@@ -63,12 +63,7 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
       });
   })
   .useFieldConfig({
-    disableStandardOptions: [
-      FieldConfigProperty.NoValue,
-      FieldConfigProperty.Max,
-      FieldConfigProperty.Min,
-      FieldConfigProperty.DisplayName,
-    ],
+    disableStandardOptions: [FieldConfigProperty.NoValue, FieldConfigProperty.Max, FieldConfigProperty.Min],
     standardOptions: {
       [FieldConfigProperty.Color]: {
         settings: {
