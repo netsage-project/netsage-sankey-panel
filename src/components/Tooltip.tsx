@@ -80,7 +80,12 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field }) => {
           .html(() => {
             var textVal = field.display(d3.select(this).attr('d'));
             var name = d3.select(this).attr('name');
-            var text = `${name}: <b>${textVal.text} ${textVal.suffix}</b>`;
+            var text;
+            if (textVal.suffix) {
+              text = `${name}: <b>${textVal.text} ${textVal.suffix}</b>`;
+            } else {
+              text = `${name}: <b>${textVal.text}</b>`;
+            }
             return text;
           })
           .style('padding', '10px 15px')
