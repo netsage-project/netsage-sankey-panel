@@ -1,9 +1,7 @@
 import { PanelPlugin, FieldConfigProperty } from '@grafana/data';
-import { standardOptionsCompat } from 'grafana-plugin-support';
+// import { standardOptionsCompat } from 'grafana-plugin-support';
 import { SankeyOptions } from './types';
 import { SankeyPanel } from './SankeyPanel';
-
-// import { standardOptionsCompat } from 'grafana-plugin-support';
 
 /**
  * Grafana panel plugin main module
@@ -11,15 +9,6 @@ import { SankeyPanel } from './SankeyPanel';
  * @param {*} { panel: React.ComponentType<PanelProps<SankeyOptions>> | null }
  * @return {*} { builder: PanelOptionsEditorBuilder<SankeyOptions> }
  */
-const buildStandardOptions = (): any => {
-  const options = [
-    FieldConfigProperty.Decimals,
-    FieldConfigProperty.Unit,
-    // FieldConfigProperty.Color,
-  ];
-
-  return standardOptionsCompat(options);
-};
 
 const monochromeBool = (monochrome: boolean) => (config: SankeyOptions) => config.monochrome === monochrome;
 
@@ -36,11 +25,6 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
         name: 'Link Color',
         showIf: monochromeBool(true),
         defaultValue: 'blue',
-      })
-      .addColorPicker({
-        path: 'textColor',
-        name: 'Text color',
-        defaultValue: 'black',
       })
       .addColorPicker({
         path: 'nodeColor',
@@ -79,5 +63,19 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
       });
   })
   .useFieldConfig({
-    standardOptions: buildStandardOptions(),
+    disableStandardOptions: [
+      FieldConfigProperty.NoValue,
+      FieldConfigProperty.Max,
+      FieldConfigProperty.Min,
+      FieldConfigProperty.DisplayName,
+    ],
+    standardOptions: {
+      [FieldConfigProperty.Color]: {
+        settings: {
+          byValueSupport: true,
+          bySeriesSupport: true,
+          preferThresholdsMode: true,
+        },
+      },
+    },
   });
