@@ -18,6 +18,7 @@ export const Link: React.FC<LinkProps> = ({ data, panelId }) => {
   // const strokeColor = '#4ec1e0';
   const strokeColor = data.color;
   const id = `${panelId}-${data.id}`;
+  const className = `sankey-path${panelId}`;
 
   return (
     <>
@@ -30,6 +31,7 @@ export const Link: React.FC<LinkProps> = ({ data, panelId }) => {
         strokeWidth={data.width}
         id={id}
         display={data.displayValue}
+        className={className}
       />
     </>
   );
