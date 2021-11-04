@@ -4,9 +4,10 @@ import * as d3 from 'd3';
 interface TooltipProps {
   rowNames: any;
   field: any;
+  panelId: any;
 }
 
-export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field }) => {
+export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field, panelId }) => {
   // get mouse position for tooltip position
   const [mousePosition, setMousePosition] = useState({ mouseX: 100, mouseY: 100 });
 
@@ -16,16 +17,16 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field }) => {
 
   useEffect(() => {
     window.addEventListener('mousemove', updateMousePosition);
-
+    const pathClass = `.sankey-path${panelId}`;
     // Links Tooltip
-    d3.selectAll('path')
+    d3.selectAll(pathClass)
       .on('mouseover', function (event: any, d: any) {
         let id = d3.select(this).attr('id');
         let row = id.split('-');
         let name = rowNames.find((e: any) => e.name === row[1]).display;
 
         // paths: selected opacity -> 1, all else -> 0.2
-        d3.selectAll('path').each(function (d) {
+        d3.selectAll(pathClass).each(function (d) {
           var thisId = d3.select(this).attr('id');
           var dark = id === thisId;
           d3.select(this).attr('opacity', dark ? 1 : 0.4);
@@ -54,11 +55,12 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field }) => {
       .on('mouseout', function (d) {
         var thisId = d3.select(this).attr('id');
         d3.selectAll(`.tooltip-${thisId}`).transition().duration(300).remove();
-        d3.selectAll('path').attr('opacity', 0.7);
+        d3.selectAll(pathClass).attr('opacity', 0.7);
       });
 
     // Nodes Tooltip
-    d3.selectAll('rect')
+    const nodeClass = `.sankey-node${panelId}`;
+    d3.selectAll(nodeClass)
       .on('mouseover', function (event: any, d: any) {
         let id = d3.select(this).attr('id').split(',');
         let panelId = id[0];
@@ -66,7 +68,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field }) => {
         id.forEach((e) => {
           rowList.push(`${panelId}-${e}`);
         });
-        d3.selectAll('path').each(function (d) {
+        d3.selectAll(pathClass).each(function (d) {
           var thisId = d3.select(this).attr('id');
           var found = rowList.find((e) => e === thisId);
           d3.select(this).attr('opacity', found ? 1 : 0.2);
@@ -102,7 +104,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field }) => {
       .on('mouseout', function (d) {
         var thisNode = d3.select(this).attr('data-index');
         d3.selectAll(`.tooltip-node${thisNode}`).transition().duration(300).remove();
-        d3.selectAll('path').attr('opacity', 0.7);
+        d3.selectAll(pathClass).attr('opacity', 0.7);
       });
 
     return () => {

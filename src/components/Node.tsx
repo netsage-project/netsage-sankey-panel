@@ -30,6 +30,7 @@ export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor, panelId 
   const width = x1 - x0;
   const strokeColor = 'black';
   const fontSize = theme.typography.fontSize;
+  const className = `sankey-node${panelId}`;
 
   return (
     <>
@@ -46,6 +47,7 @@ export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor, panelId 
         id={panelId + ',' + data.id}
         d={value}
         name={name}
+        className={className}
       />
       <text
         x={x0 < width / 2 ? x1 + 6 : x0 - 6}

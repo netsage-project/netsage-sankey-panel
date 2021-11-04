@@ -70,7 +70,7 @@ export const Sankey: React.FC<SankeyProps> = ({
           topMargin={MARGIN.top}
           textColor={textColor}
         />
-        <Tooltip rowNames={rowDisplayNames} field={field} />
+        <Tooltip rowNames={rowDisplayNames} field={field} panelId={id} />
         <g transform={`translate(${MARGIN.left}, ${MARGIN.top})`}>
           {links.map((d: { width: any }, i: any) => (
             <Link key={i} data={d} panelId={id} />
