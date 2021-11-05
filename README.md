@@ -8,7 +8,7 @@ This is a panel plugin for generating Sankey diagrams in Grafana 7.0+.  Sankey d
 ![](https://github.com/netsage-project/netsage-sankey-panel/blob/master/src/img/sankey2.png?raw=true)
 
 ## How it works
-The sankey panel requires at least 2 columns of data, a source and destination for the flows.
+The sankey panel requires at least 2 columns of data, a source and destination for the flows. This means your query should group your data into at least two groups.  The screenshot above shows data grouped by source country, then by destination county.
 The panel will draw links from the first column of data points, to the last in order of the query.  The thickness of the links will be proportionate to the value as assigned by the metric in the query.
 
 ![](https://github.com/netsage-project/netsage-sankey-panel/blob/master/src/img/sankey3.png?raw=true)
