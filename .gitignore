@@ -32,5 +32,4 @@ e2e-results/
 
 # lock files
 package-lock.json
-*.lock
 .DS_Store
