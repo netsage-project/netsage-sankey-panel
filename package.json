@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "d3": ">=7.0.0 <8.0.0",
+    "d3-sankey": "0.11.2",
     "grafana-plugin-support": "0.4.0"
   },
   "devDependencies": {
