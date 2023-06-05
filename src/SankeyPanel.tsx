@@ -22,7 +22,7 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
    * @param {*} { data, options }
    * @returns [ parsedData, displayNames ]
    */
-  var parsedData: any[] = [];
+  let parsedData: any[] = [];
   try {
     parsedData = parseData(data, options, graphOptions.monochrome, graphOptions.color);
   } catch (error) {

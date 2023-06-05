@@ -27,18 +27,18 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field, panelId }) =>
 
         // paths: selected opacity -> 1, all else -> 0.2
         d3.selectAll(pathClass).each(function (d) {
-          var thisId = d3.select(this).attr('id');
-          var dark = id === thisId;
+          let thisId = d3.select(this).attr('id');
+          let dark = id === thisId;
           d3.select(this).attr('opacity', dark ? 1 : 0.4);
         });
-        var thisId = d3.select(this).attr('id');
-        var div = d3
+        let thisId = d3.select(this).attr('id');
+        let div = d3
           .select('body')
           .append('div')
           .attr('class', `tooltip-${thisId}`)
           .html(() => {
-            var textVal = d3.select(this).attr('display');
-            var text = `${name} <br> <b>${textVal}</b>`;
+            let textVal = d3.select(this).attr('display');
+            let text = `${name} <br> <b>${textVal}</b>`;
             return text;
           })
           .style('padding', '10px 15px')
@@ -53,7 +53,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field, panelId }) =>
         div.transition().duration(200).style('opacity', 0.8);
       })
       .on('mouseout', function (d) {
-        var thisId = d3.select(this).attr('id');
+        let thisId = d3.select(this).attr('id');
         d3.selectAll(`.tooltip-${thisId}`).transition().duration(300).remove();
         d3.selectAll(pathClass).attr('opacity', 0.7);
       });
@@ -69,20 +69,20 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field, panelId }) =>
           rowList.push(`${panelId}-${e}`);
         });
         d3.selectAll(pathClass).each(function (d) {
-          var thisId = d3.select(this).attr('id');
-          var found = rowList.find((e) => e === thisId);
+          let thisId = d3.select(this).attr('id');
+          let found = rowList.find((e) => e === thisId);
           d3.select(this).attr('opacity', found ? 1 : 0.2);
         });
 
-        var thisNode = d3.select(this).attr('data-index');
-        var div = d3
+        let thisNode = d3.select(this).attr('data-index');
+        let div = d3
           .select('body')
           .append('div')
           .attr('class', `tooltip-node${thisNode}`)
           .html(() => {
-            var textVal = field.display(d3.select(this).attr('d'));
-            var name = d3.select(this).attr('name');
-            var text;
+            let textVal = field.display(d3.select(this).attr('d'));
+            let name = d3.select(this).attr('name');
+            let text;
             if (textVal.suffix) {
               text = `${name}: <b>${textVal.text} ${textVal.suffix}</b>`;
             } else {
@@ -102,7 +102,7 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field, panelId }) =>
         div.transition().duration(200).style('opacity', 0.8);
       })
       .on('mouseout', function (d) {
-        var thisNode = d3.select(this).attr('data-index');
+        let thisNode = d3.select(this).attr('data-index');
         d3.selectAll(`.tooltip-node${thisNode}`).transition().duration(300).remove();
         d3.selectAll(pathClass).attr('opacity', 0.7);
       });

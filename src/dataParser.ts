@@ -114,8 +114,8 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
     colorArray.push('#00DB57');
   }
 
-  var allData = data.series[0].fields;
-  var numFields = allData.length - 1;
+  let allData = data.series[0].fields;
+  let numFields = allData.length - 1;
 
   // add data checker.  are there enough fields?
 
@@ -158,8 +158,8 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
   let col0: Array<{ name: any; index: number; color: any }> = [];
   let rowDisplayNames: Array<{ name: any; display: any }> = [];
 
-  var rowId = 0; // update after each row
-  var currentColor;
+  let rowId = 0; // update after each row
+  let currentColor;
 
   // Retrieve panel data from panel
   frame.forEach((row) => {
@@ -184,8 +184,8 @@ export function parseData(data: { series: any[] }, options: { valueFieldName: an
     let rowColor = col0.find((e) => e.index === currentLink[0])?.color;
     let rowDisplay = `${pluginDataNodes[currentLink[0]].name}`;
     for (let i = 0; i < currentLink.length - 1; i++) {
-      var fieldValues = valueField[0].display(row[numFields]);
-      var displayValue;
+      let fieldValues = valueField[0].display(row[numFields]);
+      let displayValue;
       if (fieldValues.suffix) {
         displayValue = `${fieldValues.text} ${fieldValues.suffix}`;
       } else {

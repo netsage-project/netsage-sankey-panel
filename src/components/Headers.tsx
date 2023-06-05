@@ -16,13 +16,13 @@ export const Headers: React.FC<HeaderProps> = ({ displayNames, width, id, topMar
       .selectAll('.header-text')
       .remove();
 
-    var head = d3
+    const head = d3
       .select('#' + id)
       .append('g')
       .attr('id', `${id} header`);
-    var MARGIN = { top: topMargin, right: 20, bottom: 50, left: 20 };
+    const MARGIN = { top: topMargin, right: 20, bottom: 50, left: 20 };
 
-    var translateY = MARGIN.top / 2;
+    const translateY = MARGIN.top / 2;
 
     // Add left and right axis labels
     head
