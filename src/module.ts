@@ -1,4 +1,4 @@
-import { PanelPlugin, FieldConfigProperty } from '@grafana/data';
+import { PanelPlugin, FieldConfigProperty, FieldOverrideContext, getFieldDisplayName } from '@grafana/data';
 // import { standardOptionsCompat } from 'grafana-plugin-support';
 import { SankeyOptions } from './types';
 import { SankeyPanel } from './SankeyPanel';
@@ -51,7 +51,29 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
           step: 1,
         },
       })
-      .addSliderInput({
+      .addSelect({
+        path: 'valueField',
+        name: 'Value Field',
+        description: 'Select the field that should be used for the link thickness',
+        settings: {
+          allowCustomValue: false,
+          options: [],
+          getOptions: async (context: FieldOverrideContext) => {
+            const options = [];
+            if (context && context.data) {
+              for (const frame of context.data) {
+                for (const field of frame.fields) {
+                  const name = getFieldDisplayName(field, frame, context.data);
+                  const value = name;
+                  options.push({ value, label: name });
+                }
+              }
+            }
+            return Promise.resolve(options);
+          },
+        },
+        // defaultValue: options[0],
+      }).addSliderInput({
         path: 'iteration',
         name: 'Layout iterations',
         defaultValue: 7,

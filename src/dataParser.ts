@@ -12,8 +12,8 @@ import { DataFrameView, Field, getFieldDisplayName, Vector } from '@grafana/data
  * @return {rowDisplayNames}
  * @return {valueField[0]}
  */
-export function parseData(data: { series: any[] }, options: { valueFieldName: any }, monochrome: boolean, color: any) {
-  const { valueFieldName } = options;
+export function parseData(data: { series: any[] }, options: { valueField: any }, monochrome: boolean, color: any) {
+  const valueFieldName = options.valueField;
 
   /**
    * Colors
