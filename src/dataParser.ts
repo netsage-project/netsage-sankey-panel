@@ -135,7 +135,7 @@ export function parseData(data: { series: any[] }, options: { valueField: any },
       );
 
   let values = [];
-  valueField[0].values.buffer.map((value: any) => {
+  valueField[0].values.map((value: any) => {
     values.push([value, valueField[0].display(value), valueField[0].name]);
   });
   // display converts value to display value with units
