@@ -1,6 +1,6 @@
 {
   "name": "netsage-sankey-panel",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Sankey Panel Plugin for Grafana",
   "license": "Apache-2.0",
   "repository": "https://github.com/netsage-project/netsage-sankey-panel",

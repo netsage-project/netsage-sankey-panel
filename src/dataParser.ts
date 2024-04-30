@@ -13,7 +13,7 @@ import { DataFrameView, Field, getFieldDisplayName, Vector } from '@grafana/data
  * @return {valueField[0]}
  */
 export function parseData(data: { series: any[] }, options: { valueField: any }, monochrome: boolean, color: any) {
-  const valueFieldName = options.valueField;
+  
 
   /**
    * Colors
@@ -126,13 +126,25 @@ export function parseData(data: { series: any[] }, options: { valueField: any },
   });
 
   // Find selected value field or default to the first number field and use for values.
-  const valueField = valueFieldName
-    ? data.series.map((series: { fields: any[] }) =>
-        series.fields.find((field: { name: any }) => field.name === valueFieldName)
-      )
-    : data.series.map((series: { fields: any[] }) =>
+  // const valueFieldName = options.valueField;
+  // const valueField = options.valueField
+  //   ? data.series.map((series: { fields: any[] }) =>
+  //       series.fields.find((field: { name: any }) => field.name === options.valueField)
+  //     )
+  //   : data.series.map((series: { fields: any[] }) =>
+  //       series.fields.find((field: { type: string }) => field.type === 'number')
+  //     );
+  // Fix to avoid erroring out when value field is hidden by transform
+    let valueField = data.series.map((series: { fields: any[] }) =>
+          series.fields.find((field: { name: any }) => field.name === options.valueField)
+        )
+    if(!valueField[0]) {
+      valueField = data.series.map((series: { fields: any[] }) =>
         series.fields.find((field: { type: string }) => field.type === 'number')
       );
+    }
+
+
 
   let values = [];
   valueField[0].values.map((value: any) => {
