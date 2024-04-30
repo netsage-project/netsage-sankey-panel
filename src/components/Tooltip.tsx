@@ -42,13 +42,14 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field, panelId }) =>
             return text;
           })
           .style('padding', '10px 15px')
-          .style('background', 'black')
+          .style('background', '#19191A')
           .style('color', 'white')
-          .style('border', '#A8A8A8 solid 5px')
+          .style('border', '#A8A8A8 solid 2px')
           .style('border-radius', '5px')
           .style('left', mousePosition.mouseX + 'px')
           .style('top', mousePosition.mouseY + 'px')
           .style('opacity', 0)
+          .style('z-index','1')
           .style('position', 'absolute');
         div.transition().duration(200).style('opacity', 0.8);
       })
@@ -91,13 +92,14 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field, panelId }) =>
             return text;
           })
           .style('padding', '10px 15px')
-          .style('background', 'black')
+          .style('background', '#19191A')
           .style('color', 'white')
-          .style('border', '#A8A8A8 solid 5px')
+          .style('border', '#A8A8A8 solid 2px')
           .style('border-radius', '5px')
           .style('left', mousePosition.mouseX + 'px')
           .style('top', mousePosition.mouseY + 'px')
           .style('opacity', 0)
+          .style('z-index', '1')
           .style('position', 'absolute');
         div.transition().duration(200).style('opacity', 0.8);
       })
