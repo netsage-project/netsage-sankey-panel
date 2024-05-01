@@ -51,6 +51,17 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
           step: 1,
         },
       })
+      .addSliderInput({
+        path: 'labelSize',
+        name: 'Label Size',
+        description: 'The font size of the labels in px',
+        defaultValue: 14,
+        settings: {
+          min: 6,
+          max: 24,
+          step: 1,
+        },
+      })
       .addSelect({
         path: 'valueField',
         name: 'Value Field',
@@ -73,7 +84,8 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
           },
         },
         // defaultValue: options[0],
-      }).addSliderInput({
+      })
+      .addSliderInput({
         path: 'iteration',
         name: 'Layout iterations',
         defaultValue: 7,
