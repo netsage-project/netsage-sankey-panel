@@ -51,6 +51,7 @@ export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id 
         field={field}
         nodeWidth={graphOptions.nodeWidth}
         nodePadding={graphOptions.nodePadding}
+        labelSize={graphOptions.labelSize}
         iteration={graphOptions.iteration}
       />
     </g>

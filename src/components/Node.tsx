@@ -1,11 +1,12 @@
 import React from 'react';
-import { useTheme2 } from '@grafana/ui';
+// import { useTheme2 } from '@grafana/ui';
 
 interface NodeProps {
   data: any;
   textColor: string;
   nodeColor: string;
   panelId: any;
+  labelSize: number;
 }
 
 /**
@@ -16,8 +17,8 @@ interface NodeProps {
  * @param nodeColor is set in the editor panel, the fill color of the nodes
  * @return {*}  the node and its label
  */
-export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor, panelId }) => {
-  const theme = useTheme2();
+export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor, panelId, labelSize }) => {
+  // const theme = useTheme2();
 
   let x0 = data.x0;
   let x1 = data.x1;
@@ -29,7 +30,8 @@ export const Node: React.FC<NodeProps> = ({ data, textColor, nodeColor, panelId 
 
   const width = x1 - x0;
   const strokeColor = 'black';
-  const fontSize = theme.typography.fontSize;
+  // const fontSize = theme.typography.fontSize;
+  const fontSize = labelSize+'px';
   const className = `sankey-node${panelId}`;
 
   return (
