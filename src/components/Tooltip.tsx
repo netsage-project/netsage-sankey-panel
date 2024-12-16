@@ -12,9 +12,11 @@ export const Tooltip: React.FC<TooltipProps> = ({ rowNames, field, panelId }) =>
   const [mousePosition, setMousePosition] = useState({ mouseX: 100, mouseY: 100 });
 
   const updateMousePosition = (e: any) => {
-    setMousePosition({ mouseX: e.clientX, mouseY: e.clientY });
+    setMousePosition({
+      mouseX: e.clientX + window.scrollX,
+      mouseY: e.clientY + window.scrollY,
+    });
   };
-
   useEffect(() => {
     window.addEventListener('mousemove', updateMousePosition);
     const pathClass = `.sankey-path${panelId}`;
