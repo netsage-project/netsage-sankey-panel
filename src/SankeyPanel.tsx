@@ -1,59 +1,60 @@
 import React from 'react';
 import { PanelProps } from '@grafana/data';
-import { SankeyOptions } from 'types';
-import { parseData } from 'dataParser';
+import { SankeyOptions } from './types';
+import { parseData, fixColor } from './dataParser';
 import { Sankey } from './components/Sankey';
 import { useTheme2 } from '@grafana/ui';
 
 interface Props extends PanelProps<SankeyOptions> {}
+
 /**
- * Grafana Sankey diagram panel
+ * Grafana Sankey diagram panel entry component.
  *
- * @param {*} { options, data, width, height, id }
- * @return {*} { Sankey } the Sankey graph
+ * Parses the query data into d3-sankey nodes/links and renders the <Sankey> graph.
  */
-export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id }: any): any => {
-  let graphOptions = {
-    ...options,
-  };
+export const SankeyPanel: React.FC<Props> = ({ options, data, width, height, id }) => {
   const theme = useTheme2();
-  /**
-   * Feed data and options into data parser.
-   * @param {*} { data, options }
-   * @returns [ parsedData, displayNames ]
-   */
-  let parsedData: any[] = [];
+
+  // Parse the query data. On failure we leave `parsed` undefined so that the render below
+  // falls back to an empty diagram instead of crashing (the previous try/catch swallowed the
+  // parse error but then still dereferenced the missing result on the next line).
+  let parsed;
   try {
-    parsedData = parseData(data, options, graphOptions.monochrome, graphOptions.color);
+    parsed = parseData(
+      data,
+      options,
+      options.monochrome,
+      options.color,
+      options.linkMode,
+      options.palette,
+      options.colorByValueMappings,
+      theme
+    );
   } catch (error) {
     console.error('parsing error: ', error);
   }
-  const displayNames = parsedData[1];
-  const pluginData = parsedData[0];
-  const rowDisplayNames = parsedData[2];
-  const field = parsedData[3];
-  const fixColor = parsedData[4];
-  // const textColor = fixColor(graphOptions.textColor);
+
+  // Node fill color is resolved once here; link colors are already baked into the parsed data.
+  const nodeColor = fixColor(options.nodeColor);
+  // Text color follows the active Grafana theme (replaces the removed `textColor` option).
   const textColor = theme.colors.text.primary;
-  const nodeColor = fixColor(graphOptions.nodeColor);
 
   return (
-    <g>
-      <Sankey
-        data={pluginData}
-        displayNames={displayNames}
-        rowDisplayNames={rowDisplayNames}
-        width={width}
-        height={height}
-        id={id}
-        textColor={textColor}
-        nodeColor={nodeColor}
-        field={field}
-        nodeWidth={graphOptions.nodeWidth}
-        nodePadding={graphOptions.nodePadding}
-        labelSize={graphOptions.labelSize}
-        iteration={graphOptions.iteration}
-      />
-    </g>
+    <Sankey
+      data={parsed?.pluginData}
+      displayNames={parsed?.displayNames}
+      rowDisplayNames={parsed?.rowDisplayNames}
+      width={width}
+      height={height}
+      id={id}
+      textColor={textColor}
+      nodeColor={nodeColor}
+      field={parsed?.valueField}
+      nodeWidth={options.nodeWidth}
+      nodePadding={options.nodePadding}
+      labelSize={options.labelSize}
+      iteration={options.iteration}
+      nodeOrder={options.nodeOrder}
+    />
   );
 };

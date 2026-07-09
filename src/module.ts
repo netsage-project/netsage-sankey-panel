@@ -1,5 +1,4 @@
 import { PanelPlugin, FieldConfigProperty, FieldOverrideContext, getFieldDisplayName } from '@grafana/data';
-// import { standardOptionsCompat } from 'grafana-plugin-support';
 import { SankeyOptions } from './types';
 import { SankeyPanel } from './SankeyPanel';
 
@@ -10,21 +9,37 @@ import { SankeyPanel } from './SankeyPanel';
  * @return {*} { builder: PanelOptionsEditorBuilder<SankeyOptions> }
  */
 
-const monochromeBool = (monochrome: boolean) => (config: SankeyOptions) => config.monochrome === monochrome;
-
 export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
   .setPanelOptions((builder) => {
     builder
       .addBooleanSwitch({
+        path: 'colorByValueMappings',
+        name: 'Color links by value mappings',
+        description:
+          'Color each flow using the value mapping set on its source (first column) value. ' +
+          'Values without a mapped color keep their palette color.',
+        defaultValue: false,
+      })
+      .addBooleanSwitch({
         path: 'monochrome',
         name: 'Single Link color only',
         defaultValue: false,
+        showIf: (config: SankeyOptions) => !config.colorByValueMappings,
       })
       .addColorPicker({
         path: 'color',
         name: 'Link Color',
-        showIf: monochromeBool(true),
+        showIf: (config: SankeyOptions) => !config.colorByValueMappings && config.monochrome,
         defaultValue: 'blue',
+      })
+      .addTextInput({
+        path: 'palette',
+        name: 'Custom color palette',
+        description:
+          'Comma-separated colors (hex like #ff0000, CSS names, or Grafana color names) cycled ' +
+          'across the flows. Leave empty to use the default palette.',
+        defaultValue: '',
+        showIf: (config: SankeyOptions) => !config.colorByValueMappings && !config.monochrome,
       })
       .addColorPicker({
         path: 'nodeColor',
@@ -85,6 +100,20 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
         },
         // defaultValue: options[0],
       })
+      .addRadio({
+        path: 'linkMode',
+        name: 'Link mode',
+        description:
+          'Columns as levels: each column is a level and each row a full path. ' +
+          'Edge list: first two columns are source→target and nodes connect by name (for multilevel graphs).',
+        defaultValue: 'columns',
+        settings: {
+          options: [
+            { value: 'columns', label: 'Columns as levels' },
+            { value: 'edgeList', label: 'Edge list (source → target)' },
+          ],
+        },
+      })
       .addSliderInput({
         path: 'iteration',
         name: 'Layout iterations',
@@ -94,8 +123,28 @@ export const plugin = new PanelPlugin<SankeyOptions>(SankeyPanel)
           max: 30,
           step: 1,
         },
+      })
+      .addRadio({
+        path: 'nodeOrder',
+        name: 'Node ordering',
+        description: 'Order nodes vertically by the query/row order, or let the layout decide automatically',
+        defaultValue: 'data',
+        settings: {
+          options: [
+            { value: 'data', label: 'Query order' },
+            { value: 'auto', label: 'Automatic' },
+          ],
+        },
       });
   })
+  // NOTE: the standard Color field config below is enabled but is NOT currently consumed by
+  // the render path — link colors come from the monochrome/color options + palette in
+  // dataParser.ts, and node color from the `nodeColor` option. Left as-is to avoid changing
+  // behavior; consolidating the two color systems is future work (see refactor_notes.md).
+  //
+  // The standard Data links option (FieldConfigProperty.Links) is enabled by default (it is not
+  // in disableStandardOptions), and the panel now honors it: configured links are attached to
+  // each flow via field.getLinks() in dataParser.ts and opened on click by DataLinksContextMenu.
   .useFieldConfig({
     disableStandardOptions: [FieldConfigProperty.NoValue, FieldConfigProperty.Max, FieldConfigProperty.Min],
     standardOptions: {

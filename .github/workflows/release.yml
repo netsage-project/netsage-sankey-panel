@@ -14,46 +14,31 @@ jobs:
     env:
       GRAFANA_API_KEY: ${{ secrets.GRAFANA_API_KEY }} # Requires a Grafana API key from Grafana.com.
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
+      # Node version comes from .nvmrc, matching CI and local dev.
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version-file: '.nvmrc'
           cache: 'yarn'
 
-      - name: Setup Go environment
-        uses: actions/setup-go@v3
-        with:
-          go-version: '1.19'
-
+      # `--immutable` is a Yarn 2+ flag; this project pins yarn 1.22.10, whose equivalent is
+      # `--frozen-lockfile`. The old flag failed the install outright.
       - name: Install dependencies
-        run: yarn install --immutable --prefer-offline
+        run: yarn install --frozen-lockfile --prefer-offline
 
-      - name: Build and test frontend
+      - name: Typecheck
+        run: yarn typecheck
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Unit tests
+        run: yarn test:ci
+
+      - name: Build frontend
         run: yarn build
-
-      - name: Check for backend
-        id: check-for-backend
-        run: |
-          if [ -f "Magefile.go" ]
-          then
-            echo "has-backend=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Test backend
-        if: steps.check-for-backend.outputs.has-backend == 'true'
-        uses: magefile/mage-action@v2
-        with:
-          version: latest
-          args: coverage
-
-      - name: Build backend
-        if: steps.check-for-backend.outputs.has-backend == 'true'
-        uses: magefile/mage-action@v2
-        with:
-          version: latest
-          args: buildAll
 
       - name: Warn missing Grafana API key
         run: |
@@ -102,7 +87,7 @@ jobs:
           echo "checksum=$(cat ./${{ steps.metadata.outputs.archive-checksum }} | cut -d' ' -f1)" >> $GITHUB_OUTPUT
 
       - name: Create Github release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           draft: true
           generate_release_notes: true

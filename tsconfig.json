@@ -1,3 +1,17 @@
 {
-  "extends": "./.config/tsconfig.json"
+  // Extends @grafana/tsconfig directly rather than ./.config/tsconfig.json: that scaffolded file
+  // sets `baseUrl`, which TypeScript 6 reports as deprecated and TS 7 will drop. `baseUrl` cannot be
+  // unset by an extending config, and nothing here needs it — every import in src/ and tests/ is
+  // relative. The options below mirror the ones the scaffold contributed, minus `baseUrl`.
+  "extends": "@grafana/tsconfig",
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "declaration": false,
+    "resolveJsonModule": true,
+    // Tests now live outside src/ (under tests/), so rootDir is the project root.
+    "rootDir": "."
+  },
+  // Typecheck the source and the unit tests (which import from ../../src). tests/e2e is excluded
+  // — it uses @playwright/test / @grafana/plugin-e2e and is typechecked by Playwright's own loader.
+  "include": ["src", "tests/unit", ".config/types"]
 }

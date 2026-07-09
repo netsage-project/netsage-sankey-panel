@@ -1,66 +1,90 @@
-import React, { useEffect } from 'react';
-import * as d3 from 'd3';
+import React from 'react';
 
 interface HeaderProps {
-  displayNames: any;
-  width: any;
-  id: any;
+  /** One label per STAGE column, in query order (the value column has no header). */
+  displayNames: string[];
+  /** Graph (plot) width, used to position the right label and space the middle ones. */
+  width: number;
   topMargin: number;
+  leftMargin: number;
   textColor: string;
 }
 
-export const Headers: React.FC<HeaderProps> = ({ displayNames, width, id, topMargin, textColor }) => {
-  useEffect(() => {
-    //clear old headers
-    d3.select('#' + id)
-      .selectAll('.header-text')
-      .remove();
+const FONT_SIZE = '14pt';
+const FONT_WEIGHT = 500;
 
-    const head = d3
-      .select('#' + id)
-      .append('g')
-      .attr('id', `${id} header`);
-    const MARGIN = { top: topMargin, right: 20, bottom: 50, left: 20 };
+/**
+ * Column header labels drawn above the diagram.
+ *
+ * Rewritten from imperative D3 (`d3.select(...).append('text')` inside a dependency-less
+ * `useEffect`) to declarative JSX. The old approach re-ran on every render, appended a new
+ * `<g>` each time (leaking orphan groups), and used an id containing a space. Positions,
+ * font (14pt / weight 500) and anchors are preserved, so the rendered headers are identical.
+ *
+ * Rendered directly inside the SVG (outside the main translated group), so coordinates are in
+ * absolute SVG space, matching the previous behavior.
+ */
+export const Headers: React.FC<HeaderProps> = ({ displayNames, width, topMargin, leftMargin, textColor }) => {
+  if (!displayNames || displayNames.length === 0) {
+    return null;
+  }
 
-    const translateY = MARGIN.top / 2;
+  const translateY = topMargin / 2;
+  const labels: React.ReactNode[] = [];
 
-    // Add left and right axis labels
-    head
-      .append('text')
-      .attr('class', 'header-text')
-      .attr('transform', 'translate(' + MARGIN.left + ',' + translateY + ')') // above left axis
-      .attr('font-size', '14pt')
-      .attr('font-weight', '500')
-      .attr('text-anchor', 'start')
-      .text(displayNames[0])
-      .attr('fill', textColor);
+  // Left axis label = first column.
+  labels.push(
+    <text
+      key="header-left"
+      x={leftMargin}
+      y={translateY}
+      fontSize={FONT_SIZE}
+      fontWeight={FONT_WEIGHT}
+      textAnchor="start"
+      fill={textColor}
+    >
+      {displayNames[0]}
+    </text>
+  );
 
-    head
-      .append('text')
-      .attr('class', 'header-text')
-      .attr('transform', 'translate(' + (width + MARGIN.left) + ',' + translateY + ')') // above right axis
-      .attr('font-size', '14pt')
-      .attr('font-weight', '500')
-      .attr('text-anchor', 'end')
-      .text(displayNames[displayNames.length - 2]) // last one is value label
-      .attr('fill', textColor);
+  // Right axis label = last stage column. Skipped when there is only one stage, which would
+  // otherwise draw the same label twice at the same y.
+  if (displayNames.length > 1) {
+    labels.push(
+      <text
+        key="header-right"
+        x={width + leftMargin}
+        y={translateY}
+        fontSize={FONT_SIZE}
+        fontWeight={FONT_WEIGHT}
+        textAnchor="end"
+        fill={textColor}
+      >
+        {displayNames[displayNames.length - 1]}
+      </text>
+    );
+  }
 
-    if (displayNames.length > 3) {
-      const colWidth = width / (displayNames.length - 2);
-      for (let i = 1; i < displayNames.length - 2; i++) {
-        let translateX = colWidth * i + MARGIN.left;
-        head
-          .append('text')
-          .attr('class', 'header-text')
-          .attr('transform', `translate(${translateX},${translateY})`)
-          .attr('font-size', '14pt')
-          .attr('font-weight', '500')
-          .attr('text-anchor', 'middle')
-          .text(displayNames[i])
-          .attr('fill', textColor);
-      }
+  // Evenly spaced labels for any intermediate columns.
+  if (displayNames.length > 2) {
+    const colWidth = width / (displayNames.length - 1);
+    for (let i = 1; i < displayNames.length - 1; i++) {
+      const translateX = colWidth * i + leftMargin;
+      labels.push(
+        <text
+          key={`header-mid-${i}`}
+          x={translateX}
+          y={translateY}
+          fontSize={FONT_SIZE}
+          fontWeight={FONT_WEIGHT}
+          textAnchor="middle"
+          fill={textColor}
+        >
+          {displayNames[i]}
+        </text>
+      );
     }
-  });
+  }
 
-  return null;
+  return <g className="header-text">{labels}</g>;
 };

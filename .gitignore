@@ -26,6 +26,16 @@ work/
 ci/
 e2e-results/
 
+# Playwright e2e
+test-results/
+playwright-report/
+playwright/.auth/
+blob-report/
+playwright/.cache/
+
+# eslint cache (from `lint --cache`)
+.eslintcache
+
 # Editors
 .idea
 .vscode
